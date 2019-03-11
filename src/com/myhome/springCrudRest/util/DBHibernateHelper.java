@@ -30,6 +30,11 @@ public class DBHibernateHelper {
 		configuration.setProperty("hibernate.connection.password", propertiesReader.getProperties("password"));
 		configuration.setProperty("hibernate.show_sql", propertiesReader.getProperties("show_sql"));
 		configuration.setProperty("hibernate.hbm2ddl.auto", propertiesReader.getProperties("hbm2ddl.auto"));
+		//configuration.setProperty("hibernate.serverTimezone", propertiesReader.getProperties("serverTimezone"));
+		//configuration.setProperty("hibernate.useLegacyDatetimeCode", propertiesReader.getProperties("useLegacyDatetimeCode"));
+		//configuration.setProperty("hibernate.useJDBCCompliantTimezoneShift", propertiesReader.getProperties("useJDBCCompliantTimezoneShift"));
+		//configuration.setProperty("hibernate.useUnicode", propertiesReader.getProperties("useUnicode"));
+		//configuration.setProperty("hibernate.id.new_generator_mappings", propertiesReader.getProperties("id.new_generator_mappings"));
 		return configuration;
 	}
 }
