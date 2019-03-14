@@ -8,14 +8,43 @@ import org.hibernate.service.ServiceRegistry;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
+@EnableWebMvc
 @ComponentScan(basePackages = "com.myhome.springCrudRest")
-public class AppConfig {
+public class AppConfig implements WebMvcConfigurer {
+
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        System.out.println("=== AppConfig ===" + "=== addViewControllers ===");
+        registry.addViewController("/test");
+    }
+
+    @Bean
+    public ViewResolver viewResolver() {
+        System.out.println("=== AppConfig ===" + "=== viewResolver ===");
+
+        InternalResourceViewResolver bean = new InternalResourceViewResolver();
+
+        bean.setViewClass(JstlView.class);
+        bean.setPrefix("/jsp/");
+        bean.setSuffix(".jsp");
+
+        return bean;
+    }
 
 
     @Bean
     public SessionFactory sessionFactory(org.hibernate.cfg.Configuration configuration)  {
+        System.out.println("=== AppConfig ===" + "=== sessionFactory ===");
+
         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
         builder.applySettings(configuration.getProperties());
         ServiceRegistry serviceRegistry = builder.build();
@@ -25,6 +54,8 @@ public class AppConfig {
 
     @Bean
     public org.hibernate.cfg.Configuration configuration()  {
+        System.out.println("=== AppConfig ===" + "=== configuration ===");
+
         org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
         configuration.addAnnotatedClass(UserDataSet.class);
 
