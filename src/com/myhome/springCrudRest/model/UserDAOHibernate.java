@@ -4,7 +4,10 @@ import com.myhome.springCrudRest.util.DBHibernateHelper;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Component;
 
+
+@Component
 public class UserDAOHibernate implements UserDAO {
 
     private final SessionFactory sessionFactory = DBHibernateHelper.createSessionFactory(DBHibernateHelper.getConfiguration());
@@ -12,7 +15,7 @@ public class UserDAOHibernate implements UserDAO {
 
     public UserDataSet get(long id) {
         Session session = sessionFactory.openSession(); //todo тут не надо try-catch?
-        UserDataSet userDataSet = (UserDataSet)session.load(UserDataSet.class, id);
+        UserDataSet userDataSet = session.load(UserDataSet.class, id);
         session.close();
         return userDataSet;
     }
