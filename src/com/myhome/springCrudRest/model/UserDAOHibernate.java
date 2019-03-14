@@ -1,16 +1,22 @@
 package com.myhome.springCrudRest.model;
 
-import com.myhome.springCrudRest.util.DBHibernateHelper;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
 @Component
 public class UserDAOHibernate implements UserDAO {
 
-    private final SessionFactory sessionFactory = DBHibernateHelper.createSessionFactory(DBHibernateHelper.getConfiguration());
+    @Autowired
+    private SessionFactory sessionFactory;
+
+
+    public UserDAOHibernate(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
 
     public UserDataSet get(long id) {
