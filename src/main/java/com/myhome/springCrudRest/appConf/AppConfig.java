@@ -1,6 +1,6 @@
 package com.myhome.springCrudRest.appConf;
 
-import com.myhome.springCrudRest.model.UserDataSet;
+import com.myhome.springCrudRest.model.User;
 import com.myhome.springCrudRest.util.PropertiesReader;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -14,6 +14,10 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 @Configuration
 @EnableWebMvc
@@ -42,6 +46,13 @@ public class AppConfig implements WebMvcConfigurer {
 
 
     @Bean
+    public EntityManagerFactory entityManagerFactory(){
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("aaasssddd");
+        return entityManagerFactory;
+    }
+
+
+    @Bean
     public SessionFactory sessionFactory(org.hibernate.cfg.Configuration configuration)  {
         System.out.println("=== AppConfig ===" + "=== sessionFactory ===");
 
@@ -57,7 +68,7 @@ public class AppConfig implements WebMvcConfigurer {
         System.out.println("=== AppConfig ===" + "=== configuration ===");
 
         org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
-        configuration.addAnnotatedClass(UserDataSet.class);
+        configuration.addAnnotatedClass(User.class);
 
         PropertiesReader propertiesReader = new PropertiesReader("hibernate.properties");
 

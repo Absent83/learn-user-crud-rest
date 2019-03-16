@@ -1,38 +1,46 @@
-package com.myhome.springCrudRest.model;
+package com.myhome.springCrudRest.dao;
 
+import com.myhome.springCrudRest.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 
-@Component
+
 public class UserDAOHibernate implements UserDAO {
 
-    @Autowired
     private SessionFactory sessionFactory;
 
-
+    @Autowired
     public UserDAOHibernate(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
 
-    public UserDataSet get(long id) {
+    public Optional<User> get(long id) {
         Session session = sessionFactory.openSession(); //todo тут не надо try-catch?
-        UserDataSet userDataSet = session.load(UserDataSet.class, id);
+        User user = session.get(User.class, id);
         session.close();
-        return userDataSet;
+
+        if (user == null){
+            return Optional.empty();
+        }
+        else return Optional.of(user);
     }
 
 
-    public UserDataSet getByName(String name) {
-        return null;
+    public Optional<User> getByName(String name) {
+
+
+
+        return Optional.empty();
     }
 
 
-    public void add(UserDataSet userDataSet) {
+    public void add(User user) {
         Session session = sessionFactory.openSession();
 
         Transaction tx = session.beginTransaction();
@@ -41,9 +49,14 @@ public class UserDAOHibernate implements UserDAO {
         // using @Transactional annotation
 
 
-        session.save(userDataSet);
+        session.save(user);
         tx.commit();
         session.close();
+    }
+
+    @Override
+    public void update(User dataSet) {
+
     }
 
 

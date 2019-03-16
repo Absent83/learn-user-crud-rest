@@ -13,7 +13,8 @@ import javax.servlet.ServletRegistration;
 public class MainWebAppInitializer implements WebApplicationInitializer {
     @Override
     public void onStartup(final ServletContext sc) throws ServletException {
-        System.out.println("=== MainWebAppInitializer ===" + "=== onStartup ===");
+        System.out.println("=== MainWebAppInitializer ===" + "=== onStartup begin===");
+
         AnnotationConfigWebApplicationContext root =
                 new AnnotationConfigWebApplicationContext();
 
@@ -24,5 +25,8 @@ public class MainWebAppInitializer implements WebApplicationInitializer {
                 sc.addServlet("mvc", new DispatcherServlet(new GenericWebApplicationContext()));
         appServlet.setLoadOnStartup(1);
         appServlet.addMapping("/");
+
+        System.out.println("=== MainWebAppInitializer ===" + "=== onStartup end===");
+
     }
 }

@@ -1,11 +1,9 @@
 package com.myhome.springCrudRest;
 
 import com.myhome.springCrudRest.appConf.AppConfig;
-import com.myhome.springCrudRest.model.UserDAO;
-import com.myhome.springCrudRest.model.UserDAOHibernate;
-import com.myhome.springCrudRest.model.UserDataSet;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import com.myhome.springCrudRest.dao.UserDAO;
+import com.myhome.springCrudRest.dao.UserDAOHibernate;
+import com.myhome.springCrudRest.model.User;
 
 
 public class Run {
@@ -17,7 +15,7 @@ public class Run {
 
         UserDAO userDAO = new UserDAOHibernate(appConfig.sessionFactory(appConfig.configuration()));
 
-        UserDataSet user = new UserDataSet();
+        User user = new User();
         user.setName("vasya111");
 
         userDAO.add(user);
