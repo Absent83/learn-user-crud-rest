@@ -24,17 +24,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void add(User dataSet) {
-
+    public void add(User user) {
+        userDAO.add(user);
     }
 
     @Override
-    public void update(User dataSet) {
-
+    public void update(User user) {
+        userDAO.update(user);
     }
 
     @Override
     public void delete(long id) {
-
+        userDAO.delete(id);
     }
 }

@@ -1,5 +1,6 @@
 package com.myhome.springCrudRest.appConf;
 
+import com.myhome.springCrudRest.hibernate.HibernateEntityManagerFactory;
 import com.myhome.springCrudRest.model.User;
 import com.myhome.springCrudRest.util.PropertiesReader;
 import org.hibernate.SessionFactory;
@@ -16,8 +17,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 @Configuration
 @EnableWebMvc
@@ -45,14 +44,19 @@ public class AppConfig implements WebMvcConfigurer {
     }
 
 
+    private static class EntityManagerHolder {
+        private static final EntityManager ENTITY_MANAGER = new HibernateEntityManagerFactory(
+                new Class[]{User.class})
+                .getEntityManager();
+    }
+
     @Bean
-    public EntityManagerFactory entityManagerFactory(){
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("aaasssddd");
-        return entityManagerFactory;
+    public static EntityManager getJpaEntityManager() {
+        return EntityManagerHolder.ENTITY_MANAGER;
     }
 
 
-    @Bean
+    //@Bean
     public SessionFactory sessionFactory(org.hibernate.cfg.Configuration configuration)  {
         System.out.println("=== AppConfig ===" + "=== sessionFactory ===");
 
@@ -63,27 +67,27 @@ public class AppConfig implements WebMvcConfigurer {
     }
 
 
-    @Bean
+    //@Bean
     public org.hibernate.cfg.Configuration configuration()  {
         System.out.println("=== AppConfig ===" + "=== configuration ===");
 
         org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
         configuration.addAnnotatedClass(User.class);
 
-        PropertiesReader propertiesReader = new PropertiesReader("hibernate.properties");
+        PropertiesReader propertiesHibernateReader = new PropertiesReader("hibernate.properties");
 
-        configuration.setProperty("hibernate.dialect", propertiesReader.getProperties("dialect"));
-        configuration.setProperty("hibernate.connection.driver_class", propertiesReader.getProperties("driver.class"));
-        configuration.setProperty("hibernate.connection.url", propertiesReader.getProperties("connection.url"));
-        configuration.setProperty("hibernate.connection.username", propertiesReader.getProperties("username"));
-        configuration.setProperty("hibernate.connection.password", propertiesReader.getProperties("password"));
-        configuration.setProperty("hibernate.show_sql", propertiesReader.getProperties("show_sql"));
-        configuration.setProperty("hibernate.hbm2ddl.auto", propertiesReader.getProperties("hbm2ddl.auto"));
-        //configuration.setProperty("hibernate.serverTimezone", propertiesReader.getProperties("serverTimezone"));
-        //configuration.setProperty("hibernate.useLegacyDatetimeCode", propertiesReader.getProperties("useLegacyDatetimeCode"));
-        //configuration.setProperty("hibernate.useJDBCCompliantTimezoneShift", propertiesReader.getProperties("useJDBCCompliantTimezoneShift"));
-        //configuration.setProperty("hibernate.useUnicode", propertiesReader.getProperties("useUnicode"));
+        configuration.setProperty("hibernate.dialect", propertiesHibernateReader.getProperties("dialect"));
+        configuration.setProperty("hibernate.show_sql", propertiesHibernateReader.getProperties("show_sql"));
+        configuration.setProperty("hibernate.hbm2ddl.auto", propertiesHibernateReader.getProperties("hbm2ddl.auto"));
         //configuration.setProperty("hibernate.id.new_generator_mappings", propertiesReader.getProperties("id.new_generator_mappings"));
+
+
+        PropertiesReader propertiesDataSourceReader = new PropertiesReader("mysqlDataSource.properties");
+
+        configuration.setProperty("hibernate.connection.driver_class", propertiesDataSourceReader.getProperties("driver.class"));
+        configuration.setProperty("hibernate.connection.url", propertiesDataSourceReader.getProperties("connection.url"));
+        configuration.setProperty("hibernate.connection.username", propertiesDataSourceReader.getProperties("username"));
+        configuration.setProperty("hibernate.connection.password", propertiesDataSourceReader.getProperties("password"));
         return configuration;
     }
 }

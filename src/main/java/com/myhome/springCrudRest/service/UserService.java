@@ -8,8 +8,8 @@ public interface UserService {
     Optional<User> get(long id);
     Optional<User> getByName(String name);
 
-    void add(User dataSet);
-    void update(User dataSet);
+    void add(User user);
+    void update(User user);
     void delete(long id);
 }
 
