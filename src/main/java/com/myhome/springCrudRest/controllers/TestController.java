@@ -1,6 +1,6 @@
 package com.myhome.springCrudRest.controllers;
 
-import com.myhome.springCrudRest.form.UserForm;
+import com.myhome.springCrudRest.model.dto.UserForm;
 import com.myhome.springCrudRest.model.User;
 import com.myhome.springCrudRest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,20 +36,20 @@ public class TestController {
             users = usersCandidate.get();
         }
         else {
-            throw (new IllegalArgumentException()); //todo тут какой exception кидать?
+            throw (new IllegalArgumentException()); //todo тут что делать?
         }
         return users;
     }
 
     @PostMapping(path="/users")
-    public ResponseEntity<Object> addUser(@RequestBody UserForm userForm) {
+    public ResponseEntity<Object> addUser(@RequestBody User userForm) { //
         System.out.println(userForm.getName());
 
-        User userNew = new User();
-        userNew.setName(userForm.getName());
-        userNew.setEmail(userForm.getEmail());
+//        User userNew = new User();
+//        userNew.setName(userForm.getName());
+//        userNew.setEmail(userForm.getEmail());
 
-        userService.add(userNew);
+        userService.add(userForm);
         return ResponseEntity.ok().build();
     }
 
@@ -83,7 +83,7 @@ public class TestController {
             userService.update(user);
         }
         else {
-            throw (new IllegalArgumentException()); //todo тут какой exception кидать?
+            throw (new IllegalArgumentException());
         }
         return ResponseEntity.ok().build();
     }
@@ -94,13 +94,10 @@ public class TestController {
 
         Optional<User> userCandidate = userService.get(userId);
 
-        User user = null;
-
         if (userCandidate.isPresent()){
             userService.delete(userId);
-        }
-        else {
-            throw (new IllegalArgumentException());
+        } else {
+            throw (new IllegalArgumentException()); //todo ?? return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok().build();
     }

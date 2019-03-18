@@ -1,6 +1,6 @@
 package com.myhome.springCrudRest;
 
-import com.myhome.springCrudRest.appConf.AppConfig;
+import com.myhome.springCrudRest.configuration.AppConfig;
 import com.myhome.springCrudRest.dao.UserDAO;
 import com.myhome.springCrudRest.dao.UserDAOHibernate;
 import com.myhome.springCrudRest.model.User;

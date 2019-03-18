@@ -1,4 +1,4 @@
-package com.myhome.springCrudRest.hibernate;
+package com.myhome.springCrudRest.configuration;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
 
@@ -14,9 +14,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
+//todo по этому классу нет понимания
 public class HibernatePersistenceUnitInfo implements PersistenceUnitInfo {
 
-    public static final String JPA_VERSION = "2.2";
+    public static final String JPA_VERSION = "2.2"; //todo где определяем в проекте? в pom.xml?
     private final String persistenceUnitName;
     private PersistenceUnitTransactionType transactionType = PersistenceUnitTransactionType.RESOURCE_LOCAL;
     private final List<String> managedClassNames;

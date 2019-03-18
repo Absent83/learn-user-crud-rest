@@ -1,4 +1,4 @@
-package com.myhome.springCrudRest.hibernate;
+package com.myhome.springCrudRest.configuration;
 
 import com.myhome.springCrudRest.util.PropertiesReader;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;

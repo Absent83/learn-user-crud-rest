@@ -8,18 +8,18 @@ public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id = -1;
+    private Long id = -1l;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "email")
+    @Column(name = "email") //todo почему подчеркивает?
     private String email;
 
     public User() {
     }
 
-    public User(String name, String email) { //todo какие требования у Hibernate к полям / геттерам и сеттерам / конструкторам
+    public User(String name, String email) { //todo какте требования Spring? Какие требовани Hibernate?
         this.name = name;
         this.email = email;
     }

@@ -1,4 +1,4 @@
-package com.myhome.springCrudRest.form;
+package com.myhome.springCrudRest.model.dto;
 
 public class UserForm {
 

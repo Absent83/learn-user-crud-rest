@@ -1,6 +1,5 @@
-package com.myhome.springCrudRest.appConf;
+package com.myhome.springCrudRest.configuration;
 
-import com.myhome.springCrudRest.hibernate.HibernateEntityManagerFactory;
 import com.myhome.springCrudRest.model.User;
 import com.myhome.springCrudRest.util.PropertiesReader;
 import org.hibernate.SessionFactory;

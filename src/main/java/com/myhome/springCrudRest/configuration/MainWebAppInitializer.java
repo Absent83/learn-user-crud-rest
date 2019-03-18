@@ -1,4 +1,4 @@
-package com.myhome.springCrudRest.appConf;
+package com.myhome.springCrudRest.configuration;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;

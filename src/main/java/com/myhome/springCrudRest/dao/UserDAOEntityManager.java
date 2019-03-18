@@ -37,10 +37,11 @@ public class UserDAOEntityManager implements UserDAO {
         entityManager.getTransaction().commit();
 
 
-        if (user == null){
+        if (user == null) { //todo написать одной строчкой
             return Optional.empty();
+        } else {
+            return Optional.of(user);
         }
-        else return Optional.of(user);
     }
 
 
@@ -50,7 +51,7 @@ public class UserDAOEntityManager implements UserDAO {
 
         entityManager.getTransaction().begin();
         List<User> users = entityManager.createQuery(SQL_GET_BY_NAME)
-                .setParameter("name", name).getResultList();
+                .setParameter("name", name).getResultList(); //todo почему подчеркивает
         entityManager.getTransaction().commit();
 
 
@@ -68,7 +69,6 @@ public class UserDAOEntityManager implements UserDAO {
         List<User> users = entityManager.createQuery(SQL_GET_ALL).getResultList();
         entityManager.getTransaction().commit();
 
-
         if (users == null){
             return Optional.empty();
         }
@@ -79,7 +79,7 @@ public class UserDAOEntityManager implements UserDAO {
     @Override
     public void add(User user) {
         entityManager.getTransaction().begin();
-        entityManager.persist(user);
+        entityManager.merge(user);
         entityManager.getTransaction().commit();
     }
 
