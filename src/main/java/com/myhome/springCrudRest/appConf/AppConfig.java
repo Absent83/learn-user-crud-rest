@@ -27,7 +27,7 @@ public class AppConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         System.out.println("=== AppConfig ===" + "=== addViewControllers ===");
-        registry.addViewController("/test");
+        registry.addViewController("/users");
     }
 
     @Bean
@@ -44,15 +44,16 @@ public class AppConfig implements WebMvcConfigurer {
     }
 
 
-    private static class EntityManagerHolder {
+    private static class HibernateEntityManagerHolder {
         private static final EntityManager ENTITY_MANAGER = new HibernateEntityManagerFactory(
                 new Class[]{User.class})
                 .getEntityManager();
     }
 
     @Bean
-    public static EntityManager getJpaEntityManager() {
-        return EntityManagerHolder.ENTITY_MANAGER;
+    public static EntityManager getHibernateEntityManager() {
+        System.out.println("=== AppConfig ===" + "=== getHibernateEntityManager ===");
+        return HibernateEntityManagerHolder.ENTITY_MANAGER;
     }
 
 

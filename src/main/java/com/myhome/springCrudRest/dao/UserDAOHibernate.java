@@ -7,6 +7,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -32,10 +33,12 @@ public class UserDAOHibernate implements UserDAO {
     }
 
 
-    public Optional<User> getByName(String name) {
+    public Optional<List<User>> getByName(String name) {
+        return Optional.empty();
+    }
 
-
-
+    @Override
+    public Optional<List<User>> getAll() {
         return Optional.empty();
     }
 

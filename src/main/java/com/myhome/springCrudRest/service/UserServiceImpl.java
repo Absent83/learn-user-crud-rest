@@ -5,6 +5,7 @@ import com.myhome.springCrudRest.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -19,8 +20,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> getByName(String name) {
+    public Optional<List<User>> getByName(String name) {
         return userDAO.getByName(name);
+    }
+
+    @Override
+    public Optional<List<User>> getAll() {
+        return userDAO.getAll();
     }
 
     @Override

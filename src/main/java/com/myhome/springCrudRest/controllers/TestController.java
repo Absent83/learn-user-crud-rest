@@ -1,30 +1,62 @@
 package com.myhome.springCrudRest.controllers;
 
+import com.myhome.springCrudRest.form.UserForm;
 import com.myhome.springCrudRest.model.User;
 import com.myhome.springCrudRest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 
-@Controller
+@RestController
 public class TestController {
 
     @Autowired
     UserService userService;
 
-    @RequestMapping(path = "/test", method = RequestMethod.GET)
-    public ModelAndView TestModelView(){
 
-        //Optional<User> userCandidate = userService.get(1);
-        Optional<User> userCandidate = userService.getByName("ddd");
+    @GetMapping(path = "/users")
+    public List<User> getAllUsers(@RequestParam(name = "username", required = false) String userName){
+
+        Optional<List<User>> usersCandidate;
+
+        if (userName == null || userName.isEmpty()){
+            usersCandidate = userService.getAll();
+        }
+        else {
+            usersCandidate = userService.getByName(userName);
+        }
+
+        List<User> users = null;
+
+        if (usersCandidate.isPresent()){
+            users = usersCandidate.get();
+        }
+        else {
+            throw (new IllegalArgumentException()); //todo тут какой exception кидать?
+        }
+        return users;
+    }
+
+    @PostMapping(path="/users")
+    public ResponseEntity<Object> addUser(@RequestBody UserForm userForm) {
+        System.out.println(userForm.getName());
+
+        User userNew = new User();
+        userNew.setName(userForm.getName());
+        userNew.setEmail(userForm.getEmail());
+
+        userService.add(userNew);
+        return ResponseEntity.ok().build();
+    }
 
 
-
+    @GetMapping(path = "/users/{user-id}")
+    public User getUser(@PathVariable("user-id") Integer userId){
+        Optional<User> userCandidate = userService.get(userId);
 
         User user = null;
 
@@ -34,18 +66,42 @@ public class TestController {
         else {
             throw (new IllegalArgumentException());
         }
+        return user;
+    }
 
 
+    @PutMapping(path = "/users/{user-id}")
+    public ResponseEntity<Object> updateUser(@PathVariable("user-id") Integer userId, @RequestBody UserForm userForm){
+        Optional<User> userCandidate = userService.get(userId);
 
-        user.setName("AAAAAAAAAAAAAAA");
+        User user = null;
 
-        userService.update(user);
+        if (userCandidate.isPresent()){
+            user = userCandidate.get();
+            user.setName(userForm.getName());
+            user.setEmail(userForm.getEmail());
+            userService.update(user);
+        }
+        else {
+            throw (new IllegalArgumentException()); //todo тут какой exception кидать?
+        }
+        return ResponseEntity.ok().build();
+    }
 
 
-        System.out.println(user.getId() + " " + user.getName());
+    @DeleteMapping(path = "/users/{user-id}")
+    public ResponseEntity<Object> deleteUser(@PathVariable("user-id") Integer userId){
 
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("test1"); //имя view (не полный путь!! без расширения!!)
-        return modelAndView;
+        Optional<User> userCandidate = userService.get(userId);
+
+        User user = null;
+
+        if (userCandidate.isPresent()){
+            userService.delete(userId);
+        }
+        else {
+            throw (new IllegalArgumentException());
+        }
+        return ResponseEntity.ok().build();
     }
 }

@@ -19,6 +19,9 @@ public class UserDAOEntityManager implements UserDAO {
     EntityManager entityManager;
 
     //language=SQL
+    private String SQL_GET_ALL = "SELECT u FROM User u";
+
+    //language=SQL
     private String SQL_GET_BY_NAME = "SELECT u FROM User u WHERE u.name = :name";
 
     @Override
@@ -42,19 +45,34 @@ public class UserDAOEntityManager implements UserDAO {
 
 
     @Override
-    public Optional<User> getByName(String name) {
+    public Optional<List<User>> getByName(String name) {
         //EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         entityManager.getTransaction().begin();
-        List<User> user = entityManager.createQuery(SQL_GET_BY_NAME)
+        List<User> users = entityManager.createQuery(SQL_GET_BY_NAME)
                 .setParameter("name", name).getResultList();
         entityManager.getTransaction().commit();
 
 
-        if (user == null){
+        if (users == null){
             return Optional.empty();
         }
-        else return Optional.of(user.get(0));
+        else return Optional.of(users);
+    }
+
+
+    @Override
+    public Optional<List<User>> getAll() {
+
+        entityManager.getTransaction().begin();
+        List<User> users = entityManager.createQuery(SQL_GET_ALL).getResultList();
+        entityManager.getTransaction().commit();
+
+
+        if (users == null){
+            return Optional.empty();
+        }
+        else return Optional.of(users);
     }
 
 
@@ -76,8 +94,16 @@ public class UserDAOEntityManager implements UserDAO {
 
     @Override
     public void delete(long id) {
-        entityManager.getTransaction().begin();
-        entityManager.remove(get(id));
-        entityManager.getTransaction().commit();
+
+        Optional<User> userCandidate = get(id);
+
+        if (userCandidate.isPresent()){
+            entityManager.getTransaction().begin();
+            entityManager.remove(userCandidate.get());
+            entityManager.getTransaction().commit();
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
     }
 }
