@@ -13,7 +13,7 @@ public class User {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "email") //todo почему подчеркивает?
+    @Column(name = "email")
     private String email;
 
     public User() {

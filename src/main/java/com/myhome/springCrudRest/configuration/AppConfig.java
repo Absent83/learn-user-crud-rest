@@ -58,7 +58,7 @@ public class AppConfig implements WebMvcConfigurer {
 
     //@Bean
     public SessionFactory sessionFactory(org.hibernate.cfg.Configuration configuration)  {
-        System.out.println("=== AppConfig ===" + "=== sessionFactory ===");
+        System.out.println("=== AppConfig ===" + "=== hibernate sessionFactory ===");
 
         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
         builder.applySettings(configuration.getProperties());
@@ -69,7 +69,7 @@ public class AppConfig implements WebMvcConfigurer {
 
     //@Bean
     public org.hibernate.cfg.Configuration configuration()  {
-        System.out.println("=== AppConfig ===" + "=== configuration ===");
+        System.out.println("=== AppConfig ===" + "=== hibernate configuration ===");
 
         org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
         configuration.addAnnotatedClass(User.class);

@@ -12,7 +12,7 @@ import java.util.Optional;
 
 
 @RestController
-public class TestController {
+public class UserRestController {
 
     @Autowired
     UserService userService;

@@ -1,0 +1,113 @@
+package com.myhome.springCrudRest.controllers;
+
+import com.myhome.springCrudRest.model.User;
+import com.myhome.springCrudRest.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * @author Nick Dolgopolov (nick_kerch@mail.ru; https://github.com/Absent83/)
+ */
+
+@Controller
+public class UserController {
+
+    @Autowired
+    UserService userService;
+
+    @GetMapping(path = "/users/list")
+    public ModelAndView getAllUsersList() {
+
+        Optional<List<User>> usersCandidate;
+        usersCandidate = userService.getAll();
+
+        List<User> users = null;
+
+        if (usersCandidate.isPresent()) {
+            users = usersCandidate.get();
+        } else {
+            throw (new IllegalArgumentException()); //todo тут что делать?
+        }
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("list");
+        modelAndView.addObject("usersFromServer", users);
+
+        return modelAndView;
+    }
+
+
+    @GetMapping(path = "/users/edit")
+    public ModelAndView editUserForm(@RequestParam(name = "userId", required = true) Long userId) {
+
+        Optional<User> userCandidate = userService.get(userId);
+
+        User user = userCandidate.get();
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("edit");
+        modelAndView.addObject("userFromServer", user);
+
+        return modelAndView;
+    }
+
+
+    @PostMapping(path = "/users/edit")
+    public ModelAndView editUserSubmit(@RequestParam(name = "userId", required = true) Long userId,
+                                       @RequestParam(name = "userName", required = true) String userName,
+                                       @RequestParam(name = "email", required = true) String email) {
+
+        Optional<User> userCandidate = userService.get(userId);
+
+        User user = userCandidate.get();
+
+        user.setName(userName);
+        user.setEmail(email);
+
+        userService.update(user);
+
+        RedirectView redirectView = new RedirectView("/users/list");
+        //redirectView.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setView(redirectView);
+
+        return modelAndView;
+    }
+
+
+    @GetMapping(path = "/users/add")
+    public ModelAndView addUserForm() {
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("add");
+
+        return modelAndView;
+    }
+
+
+    @PostMapping(path = "/users/add")
+    public ModelAndView addUserSubmit(@RequestParam(name = "userName", required = true) String userName,
+                                      @RequestParam(name = "email", required = true) String email) {
+
+        User user = new User();
+        user.setName(userName);
+        user.setEmail(email);
+
+        userService.add(user);
+
+        RedirectView redirectView = new RedirectView("/users/list");
+        //redirectView.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setView(redirectView);
+
+        return modelAndView;
+    }
+}
