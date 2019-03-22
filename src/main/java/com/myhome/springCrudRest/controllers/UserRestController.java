@@ -32,11 +32,11 @@ public class UserRestController {
 
         List<User> users = null;
 
-        if (usersCandidate.isPresent()){
+        if (usersCandidate.isPresent()){ //todo переделать на функциональную запись
             users = usersCandidate.get();
         }
         else {
-            throw (new IllegalArgumentException()); //todo тут что делать?
+            throw (new IllegalArgumentException());
         }
         return users;
     }
@@ -97,7 +97,7 @@ public class UserRestController {
         if (userCandidate.isPresent()){
             userService.delete(userId);
         } else {
-            throw (new IllegalArgumentException()); //todo ?? return ResponseEntity.badRequest().build();
+            throw (new IllegalArgumentException());
         }
         return ResponseEntity.ok().build();
     }

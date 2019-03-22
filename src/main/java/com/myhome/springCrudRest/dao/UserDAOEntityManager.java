@@ -27,9 +27,6 @@ public class UserDAOEntityManager implements UserDAO {
     @Override
     public Optional<User> get(long id) {
         //EntityManager entityManager = entityManagerFactory.createEntityManager();
-        //todo чем отличаеся работа с EntityManagerFactory. Всегда делаем create EntitiyManaget и Close()
-        //todo использовать try catch с ресурсами?
-        //todo использовать ли Optional ?
 
         entityManager.getTransaction().begin();
         User user = entityManager.find(User.class, id);
@@ -37,7 +34,7 @@ public class UserDAOEntityManager implements UserDAO {
         entityManager.getTransaction().commit();
 
 
-        if (user == null) { //todo написать одной строчкой
+        if (user == null) {
             return Optional.empty();
         } else {
             return Optional.of(user);

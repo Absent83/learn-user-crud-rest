@@ -26,7 +26,7 @@ public class UserDeleteController implements org.springframework.web.servlet.mvc
 
             long userId = Long.parseLong(request.getParameter("userId"));
 
-            userService.delete(userId); //todo взять id в request
+            userService.delete(userId);
 
             RedirectView redirectView = new RedirectView("/users/list");
             //redirectView.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
