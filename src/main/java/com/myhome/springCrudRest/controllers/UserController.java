@@ -61,16 +61,7 @@ public class UserController {
 
 
     @PostMapping(path = "/users/edit")
-    public ModelAndView editUserSubmit(@RequestParam(name = "userId", required = true) Long userId,
-                                       @RequestParam(name = "userName", required = true) String userName,
-                                       @RequestParam(name = "email", required = true) String email) {
-
-        Optional<User> userCandidate = userService.get(userId);
-
-        User user = userCandidate.get();
-
-        user.setName(userName);
-        user.setEmail(email);
+    public ModelAndView editUserSubmit(User user) {
 
         userService.update(user);
 
@@ -94,7 +85,7 @@ public class UserController {
 
 
     @PostMapping(path = "/users/add")
-    public ModelAndView addUserSubmit(@RequestParam(name = "userName", required = true) String userName,
+    public String addUserSubmit(@RequestParam(name = "userName", required = true) String userName,
                                       @RequestParam(name = "email", required = true) String email) {
 
         User user = new User();
@@ -103,11 +94,13 @@ public class UserController {
 
         userService.add(user);
 
-        RedirectView redirectView = new RedirectView("/users/list");
-        //redirectView.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setView(redirectView);
+        return "redirect:/users/list"; //todo в чем разница этих двух редиректов
 
-        return modelAndView;
+//        RedirectView redirectView = new RedirectView("/users/list");
+//        //redirectView.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setView(redirectView);
+//
+//        return modelAndView;
     }
 }

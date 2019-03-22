@@ -22,13 +22,13 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="userId">Id:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="userId" name="userId" value="<%=user.getId()%>" readonly required>
+                <input type="text" class="form-control" id="userId" name="id" value="<%=user.getId()%>" readonly required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="userName">Name:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="userName" name="userName" value="<%=user.getName()%>" required placeholder="Enter name">
+                <input type="text" class="form-control" id="userName" name="name" value="<%=user.getName()%>" required placeholder="Enter name">
             </div>
         </div>
         <div class="form-group">
