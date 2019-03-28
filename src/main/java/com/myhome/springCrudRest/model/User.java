@@ -16,12 +16,16 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "role")
+    private Role role;
+
     public User() {
     }
 
-    public User(String name, String email) { //todo какте требования Spring? Какие требовани Hibernate?
+    public User(String name, String email, Role role) { //todo какие требования Spring? Какие требовани Hibernate?
         this.name = name;
         this.email = email;
+        this.role = role;
     }
 
 
@@ -47,5 +51,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

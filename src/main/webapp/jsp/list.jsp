@@ -26,6 +26,7 @@
             <th>Id</th>
             <th>Name</th>
             <th>E-mail</th>
+            <th>Role</th>
             <th></th>
             <th>
                 <form>
@@ -45,6 +46,8 @@
             </td>
             <td><%=user.getEmail()%>
             </td>
+            <td><%=user.getRole()%>
+            </td>
             <td>
                 <form action="${pageContext.request.contextPath}/users/edit" method="get">
                     <input type="hidden" name="userId" value="<%=user.getId()%>"/>
@@ -60,14 +63,14 @@
             </td>
         </tr>
         <%}%>
+
         </tbody>
     </table>
 
 </div>
 
 
-<p>contextPath: <%=request.getContextPath()%>
-</p>
+<p>contextPath: <%=request.getContextPath()%></p>
 <p>contextPath: ${pageContext.request.contextPath}</p>
 
 </body>

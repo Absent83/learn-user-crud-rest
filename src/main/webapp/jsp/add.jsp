@@ -1,4 +1,5 @@
 <%@ page import="com.myhome.springCrudRest.model.User" %>
+<%@ page import="com.myhome.springCrudRest.model.Role" %>
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -25,6 +26,20 @@
             <label class="control-label col-sm-2" for="email">E-mail:</label>
             <div class="col-sm-10">
                 <input type="email" class="form-control" id="email" name="email" required placeholder="Enter email">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="role">Role:</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="role" name="role" required>
+                    <%
+                        for (int i = 0; i < Role.values().length; i++) {%>
+                    <option value="<%=Role.values()[i]%>"
+                            <%=Role.values()[i] == Role.User ? "selected" : ""%>>
+                        <%=Role.values()[i]%>
+                    </option>
+                    <%}%>
+                </select>
             </div>
         </div>
         <div class="form-group">

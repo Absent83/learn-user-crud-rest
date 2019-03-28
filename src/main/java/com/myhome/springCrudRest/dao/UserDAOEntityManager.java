@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,10 +26,10 @@ public class UserDAOEntityManager implements UserDAO {
     public Optional<User> get(long id) {
         //EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        entityManager.getTransaction().begin();
+        //entityManager.getTransaction().begin(); //todo посмотреть, нужны ли транзакции
         User user = entityManager.find(User.class, id);
         //entityManager.detach(user);
-        entityManager.getTransaction().commit();
+        //entityManager.getTransaction().commit();
 
 
         if (user == null) {
