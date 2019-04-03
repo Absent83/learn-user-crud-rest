@@ -10,22 +10,31 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id = -1l;
 
+    @Column(name = "login", unique = true, nullable = false)
+    private String login;
+
     @Column(name = "name")
     private String name;
 
     @Column(name = "email")
     private String email;
 
+    @Column(name = "password")
+    private String password;
+
     @Column(name = "role")
-    private Role role;
+    @Enumerated(value = EnumType.STRING)
+    private UserRole userRole;
 
     public User() {
     }
 
-    public User(String name, String email, Role role) { //todo какие требования Spring? Какие требовани Hibernate?
+    public User(String login, String name, String email, String password, UserRole userRole) {//todo какие требования Spring? Какие требовани Hibernate?
+        this.login = login;
         this.name = name;
         this.email = email;
-        this.role = role;
+        this.password = password;
+        this.userRole = userRole;
     }
 
 
@@ -53,11 +62,27 @@ public class User {
         this.email = email;
     }
 
-    public Role getRole() {
-        return role;
+    public UserRole getUserRole() {
+        return userRole;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 }

@@ -39,6 +39,11 @@ public class UserDAOEntityManager implements UserDAO {
         }
     }
 
+    @Override
+    public Optional<User> getByLogin(String login) {
+        return Optional.empty(); //todo
+    }
+
 
     @Override
     public Optional<List<User>> getByName(String name) {

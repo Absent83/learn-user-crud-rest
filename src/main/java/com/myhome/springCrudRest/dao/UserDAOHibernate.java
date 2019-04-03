@@ -32,6 +32,11 @@ public class UserDAOHibernate implements UserDAO {
         else return Optional.of(user);
     }
 
+    @Override
+    public Optional<User> getByLogin(String login) {
+        return Optional.empty();
+    }
+
 
     public Optional<List<User>> getByName(String name) {
         return Optional.empty();

@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface UserService {
     Optional<User> get(long id);
+    Optional<User> getByLogin(String login);
 
     Optional<List<User>> getByName(String name);
     Optional<List<User>> getAll();

@@ -27,6 +27,7 @@
             <th>Name</th>
             <th>E-mail</th>
             <th>Role</th>
+            <th>Password</th>
             <th></th>
             <th>
                 <form>
@@ -46,7 +47,9 @@
             </td>
             <td><%=user.getEmail()%>
             </td>
-            <td><%=user.getRole()%>
+            <td><%=user.getUserRole()%>
+            </td>
+            <td><%=user.getPassword()%>
             </td>
             <td>
                 <form action="${pageContext.request.contextPath}/users/edit" method="get">

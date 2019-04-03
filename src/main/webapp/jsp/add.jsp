@@ -1,5 +1,5 @@
 <%@ page import="com.myhome.springCrudRest.model.User" %>
-<%@ page import="com.myhome.springCrudRest.model.Role" %>
+<%@ page import="com.myhome.springCrudRest.model.UserRole" %>
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -17,9 +17,9 @@
 
     <form class="form-horizontal" action="/users/add" method="post">
         <div class="form-group">
-            <label class="control-label col-sm-2" for="userName">Name:</label>
+            <label class="control-label col-sm-2" for="name">Name:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="userName" name="userName" required placeholder="Enter name">
+                <input type="text" class="form-control" id="name" name="name" required placeholder="Enter name">
             </div>
         </div>
         <div class="form-group">
@@ -29,14 +29,21 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-2" for="role">Role:</label>
+            <label class="control-label col-sm-2" for="password">Password</label>
             <div class="col-sm-10">
-                <select class="form-control" id="role" name="role" required>
+                <input type="password" class="form-control" id="password" name="password" required
+                       placeholder="Enter password">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="userRole">Role:</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="userRole" name="userRole" required>
                     <%
-                        for (int i = 0; i < Role.values().length; i++) {%>
-                    <option value="<%=Role.values()[i]%>"
-                            <%=Role.values()[i] == Role.User ? "selected" : ""%>>
-                        <%=Role.values()[i]%>
+                        for (int i = 0; i < UserRole.values().length; i++) {%>
+                    <option value="<%=UserRole.values()[i]%>"
+                            <%=UserRole.values()[i] == UserRole.User ? "selected" : ""%>>
+                        <%=UserRole.values()[i]%>
                     </option>
                     <%}%>
                 </select>
@@ -44,7 +51,7 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-default">Add</button>
             </div>
         </div>
     </form>

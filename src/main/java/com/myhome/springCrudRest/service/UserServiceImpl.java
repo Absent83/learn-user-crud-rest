@@ -20,6 +20,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<User> getByLogin(String login) {
+        return userDAO.getByLogin(login);
+    }
+
+    @Override
     public Optional<List<User>> getByName(String name) {
         return userDAO.getByName(name);
     }

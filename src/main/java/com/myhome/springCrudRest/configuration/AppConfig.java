@@ -5,10 +5,7 @@ import com.myhome.springCrudRest.util.PropertiesReader;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.service.ServiceRegistry;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.*;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -18,10 +15,16 @@ import org.springframework.web.servlet.view.JstlView;
 
 import javax.persistence.EntityManager;
 
+
+
+
+
+
 @Configuration
 @EnableWebMvc
 @EnableAspectJAutoProxy
 @ComponentScan(basePackages = "com.myhome.springCrudRest")
+@Import({ SecurityConfig.class })
 public class AppConfig implements WebMvcConfigurer {
 
 
@@ -29,6 +32,7 @@ public class AppConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         System.out.println("=== AppConfig ===" + "=== addViewControllers ===");
         registry.addViewController("/users");
+        registry.addViewController("/login");
     }
 
     @Bean
