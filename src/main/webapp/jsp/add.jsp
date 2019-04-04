@@ -17,6 +17,12 @@
 
     <form class="form-horizontal" action="/users/add" method="post">
         <div class="form-group">
+            <label class="control-label col-sm-2" for="login">Login:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="login" name="login" required placeholder="Enter login">
+            </div>
+        </div>
+        <div class="form-group">
             <label class="control-label col-sm-2" for="name">Name:</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="name" name="name" required placeholder="Enter name">
@@ -58,8 +64,8 @@
 </div>
 
 
-<p>contextPath: <%=request.getContextPath()%>
-</p>
+<p>userAuthorizedLogin: <%=request.getAttribute("userAuthorizedLogin").toString()%></p>
+<p>contextPath: <%=request.getContextPath()%></p>
 <p>contextPath: ${pageContext.request.contextPath}</p>
 
 </body>

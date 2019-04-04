@@ -1,6 +1,7 @@
 <%@ page import="com.myhome.springCrudRest.model.User" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="org.springframework.security.core.userdetails.UserDetails" %>
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -24,9 +25,10 @@
         <thead>
         <tr>
             <th>Id</th>
+            <th>Login</th>
             <th>Name</th>
             <th>E-mail</th>
-            <th>Role</th>
+            <th>Roles</th>
             <th>Password</th>
             <th></th>
             <th>
@@ -42,6 +44,8 @@
         %>
         <tr>
             <td><%=user.getId()%>
+            </td>
+            <td><%=user.getLogin()%>
             </td>
             <td><%=user.getName()%>
             </td>
@@ -73,6 +77,7 @@
 </div>
 
 
+<p>userAuthorizedLogin: <%=request.getAttribute("userAuthorizedLogin").toString()%></p>
 <p>contextPath: <%=request.getContextPath()%></p>
 <p>contextPath: ${pageContext.request.contextPath}</p>
 

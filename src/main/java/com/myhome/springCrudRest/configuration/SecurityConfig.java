@@ -19,6 +19,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
@@ -129,6 +130,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication().withUser("1").password("1").roles("ADMIN");
     }
 
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        PasswordEncoder encoder = NoOpPasswordEncoder.getInstance();
+        return encoder;
+    }
+
+
 //    @Bean
 //    public PasswordEncoder passwordEncoder(){
 //        PasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -136,22 +145,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    }
 
 
-
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        PasswordEncoder encoder = new PasswordEncoder() {
-            @Override
-            public String encode(CharSequence rawPassword) {
-                return rawPassword.toString();
-            }
-
-            @Override
-            public boolean matches(CharSequence rawPassword, String encodedPassword) {
-                return rawPassword.toString() == encodedPassword;
-            }
-        };
-        return encoder;
-    }
+//    @Bean
+//    public PasswordEncoder passwordEncoder(){
+//        PasswordEncoder encoder = new PasswordEncoder() {
+//            @Override
+//            public String encode(CharSequence rawPassword) {
+//                return rawPassword.toString();
+//            }
+//
+//            @Override
+//            public boolean matches(CharSequence rawPassword, String encodedPassword) {
+//                return rawPassword.toString() == encodedPassword;
+//            }
+//        };
+//        return encoder;
+//    }
 
 }
 

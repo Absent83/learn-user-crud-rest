@@ -26,7 +26,8 @@ public class LoggingAspect {
         String methodName = thisJoinPoint.getSignature().getName();
         Object[] methodArgs = thisJoinPoint.getArgs();
 
-        System.out.println("xxx");
+        System.out.println("--begin log---");
+
 
         log.info("Call method " + methodName + " with args " + methodArgs);
         Object result = null;
@@ -38,6 +39,10 @@ public class LoggingAspect {
         }
 
         log.info("Method " + methodName + " returns " + result);
+
+        System.out.println("--end log---");
+
+
         return result;
     }
 }

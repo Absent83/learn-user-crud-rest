@@ -28,6 +28,12 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="control-label col-sm-2" for="login">Login:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="login" name="login" value="<%=user.getLogin()%>" required placeholder="Enter login">
+            </div>
+        </div>
+        <div class="form-group">
             <label class="control-label col-sm-2" for="userName">Name:</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="userName" name="name" value="<%=user.getName()%>" required
@@ -44,7 +50,7 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="password">Password</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" id="password" name="password" required placeholder="Enter password">
+                <input type="password" class="form-control" id="password" name="password" value="<%=user.getPassword()%>" required placeholder="Enter password">
             </div>
         </div>
         <div class="form-group">
@@ -70,8 +76,8 @@
 </div>
 
 
-<p>contextPath: <%=request.getContextPath()%>
-</p>
+<p>userAuthorizedLogin: <%=request.getAttribute("userAuthorizedLogin").toString()%></p>
+<p>contextPath: <%=request.getContextPath()%></p>
 <p>contextPath: ${pageContext.request.contextPath}</p>
 
 </body>

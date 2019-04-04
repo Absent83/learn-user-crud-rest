@@ -3,6 +3,8 @@ package com.myhome.springCrudRest.controllers;
 import com.myhome.springCrudRest.model.User;
 import com.myhome.springCrudRest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,6 +25,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
+
     @GetMapping(path = "/users/list")
     public ModelAndView getAllUsersList() {
 
@@ -37,9 +40,13 @@ public class UserController {
             throw (new IllegalArgumentException()); //todo тут что делать?
         }
 
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("list");
         modelAndView.addObject("usersFromServer", users);
+
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        modelAndView.addObject("userAuthorizedLogin", userDetails.getUsername());
 
         return modelAndView;
     }
@@ -55,6 +62,9 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("edit");
         modelAndView.addObject("userFromServer", user);
+
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        modelAndView.addObject("userAuthorizedLogin", userDetails.getUsername());
 
         return modelAndView;
     }
@@ -79,6 +89,9 @@ public class UserController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("add");
+
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        modelAndView.addObject("userAuthorizedLogin", userDetails.getUsername());
 
         return modelAndView;
     }
