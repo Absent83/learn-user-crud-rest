@@ -111,13 +111,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers("/users/**", "/users").authenticated()
                 .and()
 
+                .authorizeRequests().antMatchers("/hallo").authenticated()
+                .and()
+
+
                 //запрашивает login-password из head (открывает окно аутентификации)
-                //.httpBasic()
+                //.httpBasic();
 
                 .formLogin()
-                .loginPage("/login").failureUrl("/login?error")
+                .loginPage("/login")
+                .failureUrl("/login?error")
+                .defaultSuccessUrl("/hallo")
                 .usernameParameter("username")
-                .passwordParameter("password");
+                .passwordParameter("password")
+
+//                .and()
+//                .rememberMe()
+//                .key("myAppKey")
+//                .tokenValiditySeconds(60)
+
+                .and()
+                .logout()
+                .logoutUrl("/logout");
+
+
+//                .and()
+//                .anonymous()
+//                .authorities("ROLE_ANONYMOUS")
+//                .principal("anonim");
 
     }
 

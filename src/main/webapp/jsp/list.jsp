@@ -19,8 +19,18 @@
 %>
 
 <div class="container">
-    <h1>List of users:</h1>
+    <div class="row">
+        <div class="col-sm-4">
+            <h1>List of users</h1>
+        </div>
+        <div class="col-sm-4 offset-sm-8 align-self-center">
+            <div class="btn btn-default">userAuthorizedLogin: <%=request.getAttribute("userAuthorizedLogin").toString()%></div>
+            <a href="/logout" class="btn btn-default">Logout</a>
+        </div>
+    </div>
+
     <p>Count: <%=users.size()%> users</p>
+
     <table class="table table-hover">
         <thead>
         <tr>
@@ -73,11 +83,10 @@
 
         </tbody>
     </table>
-
 </div>
 
 
-<p>userAuthorizedLogin: <%=request.getAttribute("userAuthorizedLogin").toString()%></p>
+
 <p>contextPath: <%=request.getContextPath()%></p>
 <p>contextPath: ${pageContext.request.contextPath}</p>
 
