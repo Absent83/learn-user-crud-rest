@@ -37,7 +37,7 @@ public class UserController {
         if (usersCandidate.isPresent()) {
             users = usersCandidate.get();
         } else {
-            throw (new IllegalArgumentException()); //todo тут что делать?
+            throw (new IllegalArgumentException());
         }
 
 

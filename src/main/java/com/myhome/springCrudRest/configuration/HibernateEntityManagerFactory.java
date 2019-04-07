@@ -13,7 +13,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-@SuppressWarnings("ALL")
+
 public class HibernateEntityManagerFactory {
 
 //    private final String DB_URL = "jdbc:mysql://databaseurl";

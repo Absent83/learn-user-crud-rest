@@ -42,14 +42,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-//        http.authorizeRequests().antMatchers("/admin/**")
-//                .access("hasRole('ROLE_ADMIN')").and().formLogin()
-//                .loginPage("/login").failureUrl("/login?error")
-//                .usernameParameter("username")
-//                .passwordParameter("password")
-//                .and().logout().logoutSuccessUrl("/login?logout")
-//                .and().csrf()
-//                .and().exceptionHandling().accessDeniedPage("/403");
 
         http.csrf().disable()
 
@@ -59,44 +51,51 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 //порядок матчеров имее значение: сработает тот, который первый.
                 //добавляет фильтр ананонимной аутентификации.
-                .authorizeRequests().antMatchers("/public").anonymous()
-                .and()
+//                .authorizeRequests().antMatchers("/public").anonymous()
+//                .and()
 
-                .authorizeRequests().antMatchers("/authorized").authenticated()
-                .and()
+//                .authorizeRequests().antMatchers("/authorized").authenticated()
+//                .and()
 
-                .authorizeRequests().antMatchers("/users/**", "/users").authenticated()
-                .and()
+                .authorizeRequests()
+                    .antMatchers("/users/**", "/users", "/api/users/**", "/api/users") //todo разница /users и /users/
+                    .hasAuthority("ADMIN")
+                    .and()
 
-                .authorizeRequests().antMatchers("/profile").authenticated()
-                .and()
+                .authorizeRequests()
+                    .antMatchers("/profile")
+                    .permitAll()
+                    //.authenticated()
+                    .and()
 
+//                .authorizeRequests()
+//                    .antMatchers("/profile")
+//                    .anonymous()
+//                    .and()
+
+                .anonymous()
+                    .authorities("ROLE_ANONYMOUS")
+                    .principal("anonim")
+                    .and()
 
                 //запрашивает login-password из head (открывает окно аутентификации)
                 //.httpBasic();
 
                 .formLogin()
-                .loginPage("/login")
-                .failureUrl("/login?error")
-                .defaultSuccessUrl("/profile")
-                .usernameParameter("username")
-                .passwordParameter("password")
+                    .loginPage("/login")
+                    .failureUrl("/login?error")
+                    .defaultSuccessUrl("/profile")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+                    .and()
 
-//                .and()
 //                .rememberMe()
 //                .key("myAppKey")
 //                .tokenValiditySeconds(60)
+//                  .and()
 
-                .and()
                 .logout()
-                .logoutUrl("/logout");
-
-
-//                .and()
-//                .anonymous()
-//                .authorities("ROLE_ANONYMOUS")
-//                .principal("anonim");
-
+                    .logoutUrl("/logout");
     }
 
     @Autowired

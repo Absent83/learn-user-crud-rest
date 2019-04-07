@@ -25,7 +25,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
 
 		UserDetails userDetails = new UserDetailsImpl(userService.getByLogin(username).orElseThrow(IllegalArgumentException::new));
-		System.out.println("login:" + userDetails.getUsername() + "; password" + userDetails.getPassword());
+		System.out.println("login:" + userDetails.getUsername() + "; password:" + userDetails.getPassword());
+
+		for (GrantedAuthority authority : userDetails.getAuthorities()) {
+			System.out.println(authority.getAuthority());
+		}
+
+
 		return userDetails;
 	}
 }

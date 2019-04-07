@@ -6,10 +6,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 
 /**
  * @author Nick Dolgopolov (nick_kerch@mail.ru; https://github.com/Absent83/)
  */
+
+
+//todo User extends UserDetails
+
 public class UserDetailsImpl implements UserDetails {
 
     private User user;
@@ -20,9 +25,15 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        String role = user.getUserRoles().toString();
-        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(role);
-        return Collections.singleton(simpleGrantedAuthority);
+
+        Collection<SimpleGrantedAuthority> authorities = new HashSet<>();
+
+        for (UserRole userRole : user.getUserRoles()) {
+            SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(userRole.toString());
+            authorities.add(simpleGrantedAuthority);
+        }
+
+        return authorities;
     }
 
     @Override

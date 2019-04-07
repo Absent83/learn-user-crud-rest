@@ -18,7 +18,7 @@ public class UserRestController {
     UserService userService;
 
 
-    @GetMapping(path = "/users")
+    @GetMapping(path = "/api/users")
     public List<User> getAllUsers(@RequestParam(name = "username", required = false) String userName){
 
         Optional<List<User>> usersCandidate;
@@ -41,7 +41,7 @@ public class UserRestController {
         return users;
     }
 
-    @PostMapping(path="/users")
+    @PostMapping(path="/api/users")
     public ResponseEntity<Object> addUser(@RequestBody User userForm) { //
         System.out.println(userForm.getName());
 
@@ -54,7 +54,7 @@ public class UserRestController {
     }
 
 
-    @GetMapping(path = "/users/{user-id}")
+    @GetMapping(path = "/api/users/{user-id}")
     public User getUser(@PathVariable("user-id") Integer userId){
         Optional<User> userCandidate = userService.get(userId);
 
@@ -70,7 +70,7 @@ public class UserRestController {
     }
 
 
-    @PutMapping(path = "/users/{user-id}")
+    @PutMapping(path = "/api/users/{user-id}")
     public ResponseEntity<Object> updateUser(@PathVariable("user-id") Integer userId, @RequestBody UserForm userForm){
         Optional<User> userCandidate = userService.get(userId);
 
@@ -89,7 +89,7 @@ public class UserRestController {
     }
 
 
-    @DeleteMapping(path = "/users/{user-id}")
+    @DeleteMapping(path = "/api/users/{user-id}")
     public ResponseEntity<Object> deleteUser(@PathVariable("user-id") Integer userId){
 
         Optional<User> userCandidate = userService.get(userId);

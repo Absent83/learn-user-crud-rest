@@ -34,6 +34,7 @@ public class AppConfig implements WebMvcConfigurer {
         registry.addViewController("/users");
         registry.addViewController("/login");
         registry.addViewController("/profile");
+        registry.addViewController("/api"); //todo тут как правильно указывать?
     }
 
     @Bean
