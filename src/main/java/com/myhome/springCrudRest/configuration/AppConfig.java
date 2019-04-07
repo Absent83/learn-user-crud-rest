@@ -33,7 +33,7 @@ public class AppConfig implements WebMvcConfigurer {
         System.out.println("=== AppConfig ===" + "=== addViewControllers ===");
         registry.addViewController("/users");
         registry.addViewController("/login");
-        registry.addViewController("/hallo");
+        registry.addViewController("/profile");
     }
 
     @Bean

@@ -1,6 +1,7 @@
 package com.myhome.springCrudRest.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="users")
@@ -22,19 +23,22 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "role")
-    @Enumerated(value = EnumType.STRING)
-    private UserRole userRole;
+
+    @ElementCollection(targetClass = UserRole.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role", nullable = false)
+    private Set<UserRole> userRoles;
 
     public User() {
     }
 
-    public User(String login, String name, String email, String password, UserRole userRole) {//todo какие требования Spring? Какие требовани Hibernate?
+    public User(String login, String name, String email, String password, Set<UserRole> userRoles) {//todo какие требования Spring? Какие требовани Hibernate?
         this.login = login;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.userRole = userRole;
+        this.userRoles = userRoles;
     }
 
 
@@ -62,12 +66,12 @@ public class User {
         this.email = email;
     }
 
-    public UserRole getUserRole() {
-        return userRole;
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
     }
 
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
+    public void setUserRoles(Set<UserRole> userRole) {
+        this.userRoles = userRole;
     }
 
     public String getPassword() {

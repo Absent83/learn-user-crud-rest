@@ -17,11 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class UserPageController {
 
-    @GetMapping(path = "/hallo")
+    @GetMapping(path = "/profile")
     public ModelAndView getUserPage() {
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("hallo");
+        modelAndView.setViewName("profile");
 
         modelAndView.addObject("userAuthorizedLogin", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 

@@ -22,6 +22,9 @@ public class UserDAOEntityManager implements UserDAO {
     //language=SQL
     private String SQL_GET_BY_NAME = "SELECT u FROM User u WHERE u.name = :name";
 
+    //language=SQL
+    private String SQL_GET_BY_LOGIN = "SELECT u FROM User u WHERE u.login = :login";
+
     @Override
     public Optional<User> get(long id) {
         //EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -41,7 +44,16 @@ public class UserDAOEntityManager implements UserDAO {
 
     @Override
     public Optional<User> getByLogin(String login) {
-        return Optional.empty(); //todo
+        //EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        User user = (User) entityManager.createQuery(SQL_GET_BY_LOGIN)
+                .setParameter("login", login).getSingleResult(); //todo почему подчеркивает
+
+
+        if (user == null){
+            return Optional.empty();
+        }
+        else return Optional.of(user);
     }
 
 
@@ -51,7 +63,7 @@ public class UserDAOEntityManager implements UserDAO {
 
         entityManager.getTransaction().begin();
         List<User> users = entityManager.createQuery(SQL_GET_BY_NAME)
-                .setParameter("name", name).getResultList(); //todo почему подчеркивает
+                .setParameter("name", name).getResultList(); //todo почему подчеркивает "name"
         entityManager.getTransaction().commit();
 
 

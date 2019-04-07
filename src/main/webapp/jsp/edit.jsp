@@ -54,17 +54,19 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-2" for="userRole">Role:</label>
+            <label class="control-label col-sm-2" for="userRoles">Roles:</label>
             <div class="col-sm-10">
-                <select class="form-control" id="userRole" name="userRole" required>
+
+                <select multiple class="form-control" id="userRoles" name="userRoles" required>
                     <%
                         for (int i = 0; i < UserRole.values().length; i++) {%>
                     <option value="<%=UserRole.values()[i]%>"
-                            <%=UserRole.values()[i] == user.getUserRole() ? "selected" : ""%>>
+                            <%=user.getUserRoles().contains(UserRole.values()[i]) ? "selected" : ""%>>
                         <%=UserRole.values()[i]%>
                     </option>
                     <%}%>
                 </select>
+
             </div>
         </div>
         <div class="form-group">

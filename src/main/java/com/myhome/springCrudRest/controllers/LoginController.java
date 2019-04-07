@@ -25,12 +25,4 @@ public class LoginController {
 
         return "login";
     }
-
-//    @PostMapping(path = "/login")
-//    public String postLoginAndPassword() {
-//
-//
-//
-//        return "login";
-//    }
 }

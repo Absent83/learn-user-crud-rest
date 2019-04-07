@@ -30,52 +30,9 @@ import java.util.Collection;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-//    @Autowired
-//    UserDetailsService userDetailsService;
+    @Autowired
+    UserDetailsService userDetailsService;
 
-//    @Bean
-//    public UserDetailsService userDetailsService(){
-//        InMemoryUserDetailsManager inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
-//
-//        inMemoryUserDetailsManager.createUser(new UserDetails() {
-//            @Override
-//            public Collection<? extends GrantedAuthority> getAuthorities() {
-//                return null;
-//            }
-//
-//            @Override
-//            public String getPassword() {
-//                return null;
-//            }
-//
-//            @Override
-//            public String getUsername() {
-//                return null;
-//            }
-//
-//            @Override
-//            public boolean isAccountNonExpired() {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean isAccountNonLocked() {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean isCredentialsNonExpired() {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean isEnabled() {
-//                return false;
-//            }
-//        });
-//
-//        return inMemoryUserDetailsManager;
-//    }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -111,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers("/users/**", "/users").authenticated()
                 .and()
 
-                .authorizeRequests().antMatchers("/hallo").authenticated()
+                .authorizeRequests().antMatchers("/profile").authenticated()
                 .and()
 
 
@@ -121,7 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .failureUrl("/login?error")
-                .defaultSuccessUrl("/hallo")
+                .defaultSuccessUrl("/profile")
                 .usernameParameter("username")
                 .passwordParameter("password")
 
@@ -145,10 +102,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         System.out.println("=== SecurityConfig === === configureGlobal ===");
-//        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 
-        auth.inMemoryAuthentication().withUser("admin").password("password").roles("ADMIN");
-        auth.inMemoryAuthentication().withUser("1").password("1").roles("ADMIN");
+//        auth.inMemoryAuthentication().withUser("admin").password("password").roles("ADMIN");
+//        auth.inMemoryAuthentication().withUser("1").password("1").roles("ADMIN");
     }
 
 

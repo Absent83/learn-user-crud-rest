@@ -24,7 +24,7 @@
             <h1>List of users</h1>
         </div>
         <div class="col-sm-4 offset-sm-8 align-self-center">
-            <div class="btn btn-default">userAuthorizedLogin: <%=request.getAttribute("userAuthorizedLogin").toString()%></div>
+            <a href="/profile" class="btn btn-default">userAuthorizedLogin: <%=request.getAttribute("userAuthorizedLogin").toString()%></a>
             <a href="/logout" class="btn btn-default">Logout</a>
         </div>
     </div>
@@ -61,7 +61,7 @@
             </td>
             <td><%=user.getEmail()%>
             </td>
-            <td><%=user.getUserRole()%>
+            <td><%=user.getUserRoles()%>
             </td>
             <td><%=user.getPassword()%>
             </td>
