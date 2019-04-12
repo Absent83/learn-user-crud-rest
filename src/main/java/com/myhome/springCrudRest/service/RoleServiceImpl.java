@@ -3,6 +3,7 @@ package com.myhome.springCrudRest.service;
 import com.myhome.springCrudRest.dao.RoleDAO;
 import com.myhome.springCrudRest.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 import java.util.Set;
@@ -10,6 +11,8 @@ import java.util.Set;
 /**
  * @author Nick Dolgopolov (nick_kerch@mail.ru; https://github.com/Absent83/)
  */
+
+@Component
 public class RoleServiceImpl implements RoleService {
 
     @Autowired
@@ -25,10 +28,6 @@ public class RoleServiceImpl implements RoleService {
         return roleDAO.getAll();
     }
 
-    @Override
-    public Optional<Set<Role>> getByUserId(long id) {
-        return roleDAO.getByUserId(id);
-    }
 
     @Override
     public void add(Role role) {

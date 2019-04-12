@@ -1,6 +1,7 @@
 package com.myhome.springCrudRest.controllers;
 
 import com.myhome.springCrudRest.model.User;
+import com.myhome.springCrudRest.service.RoleService;
 import com.myhome.springCrudRest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +25,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    RoleService roleService;
 
 
     @GetMapping(path = "/users/list")
@@ -62,6 +66,7 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("edit");
         modelAndView.addObject("userFromServer", user);
+        modelAndView.addObject("rolesFromServer", roleService.getAll().orElseThrow(IllegalArgumentException::new)); //todo тут какой Exception?
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         modelAndView.addObject("userAuthorizedLogin", userDetails.getUsername());

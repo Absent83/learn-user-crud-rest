@@ -9,7 +9,6 @@ public interface RoleService {
     Optional<Role> get(long id);
 
     Optional<Set<Role>> getAll();
-    Optional<Set<Role>> getByUserId(long id);
 
     void add(Role role);
     void update(Role role);

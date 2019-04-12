@@ -1,5 +1,6 @@
 package com.myhome.springCrudRest.configuration;
 
+import com.myhome.springCrudRest.model.Role;
 import com.myhome.springCrudRest.model.User;
 import com.myhome.springCrudRest.util.PropertiesReader;
 import org.hibernate.SessionFactory;
@@ -53,7 +54,10 @@ public class AppConfig implements WebMvcConfigurer {
 
     private static class HibernateEntityManagerHolder {
         private static final EntityManager ENTITY_MANAGER = new HibernateEntityManagerFactory(
-                new Class[]{User.class})
+                new Class[]{
+                        User.class,
+                        Role.class
+                })
                 .getEntityManager();
     }
 

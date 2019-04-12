@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface UserDAO { //CRUD Create Read Update Delete
     Optional<User> get(long id);
-    Optional<User> getByLogin(String login);
+    Optional<User> getByUsername(String username);
 
-    Optional<List<User>> getByName(String name);
+    Optional<List<User>> getByFirstName(String firstName);
     Optional<List<User>> getAll();
 
     void add(User user);

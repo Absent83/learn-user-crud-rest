@@ -16,7 +16,7 @@ public class Run {
         UserDAO userDAO = new UserDAOHibernate(appConfig.sessionFactory(appConfig.configuration()));
 
         User user = new User();
-        user.setName("vasya111");
+        user.setFirstName("vasya111");
 
         userDAO.add(user);
     }

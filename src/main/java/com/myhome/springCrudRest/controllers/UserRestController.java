@@ -27,7 +27,7 @@ public class UserRestController {
             usersCandidate = userService.getAll();
         }
         else {
-            usersCandidate = userService.getByName(userName);
+            usersCandidate = userService.getByFirstName(userName);
         }
 
         List<User> users = null;
@@ -43,7 +43,7 @@ public class UserRestController {
 
     @PostMapping(path="/api/users")
     public ResponseEntity<Object> addUser(@RequestBody User userForm) { //
-        System.out.println(userForm.getName());
+        //System.out.println(userForm.getName());
 
 //        User userNew = new User();
 //        userNew.setName(userForm.getName());
@@ -78,7 +78,7 @@ public class UserRestController {
 
         if (userCandidate.isPresent()){
             user = userCandidate.get();
-            user.setName(userForm.getName());
+            user.setFirstName(userForm.getName());
             user.setEmail(userForm.getEmail());
             userService.update(user);
         }

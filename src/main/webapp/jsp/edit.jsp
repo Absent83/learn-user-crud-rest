@@ -1,5 +1,7 @@
 <%@ page import="com.myhome.springCrudRest.model.User" %>
 <%@ page import="com.myhome.springCrudRest.model.Role" %>
+<%@ page import="java.util.Set" %>
+<%@ page import="java.util.HashSet" %>
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -14,6 +16,7 @@
 
 <%
     User user = (User) request.getAttribute("userFromServer");
+    Set<Role> allRoles = (HashSet<Role>) request.getAttribute("rolesFromServer");
 %>
 
 <div class="container">
@@ -28,15 +31,15 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-2" for="login">Login:</label>
+            <label class="control-label col-sm-2" for="username">Login:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="login" name="login" value="<%=user.getLogin()%>" required placeholder="Enter login">
+                <input type="text" class="form-control" id="username" name="username" value="<%=user.getUsername()%>" required placeholder="Enter login">
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-2" for="userName">Name:</label>
+            <label class="control-label col-sm-2" for="firstName">Name:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="userName" name="name" value="<%=user.getName()%>" required
+                <input type="text" class="form-control" id="firstName" name="firstName" value="<%=user.getFirstName()%>" required
                        placeholder="Enter name">
             </div>
         </div>
@@ -59,10 +62,10 @@
 
                 <select multiple class="form-control" id="roles" name="roles" required>
                     <%
-                        for (int i = 0; i < Role.values().length; i++) {%>
-                    <option value="<%=Role.values()[i]%>"
-                            <%=user.getRoles().contains(Role.values()[i]) ? "selected" : ""%>>
-                        <%=Role.values()[i]%>
+                        for (Role role : allRoles) {%>
+                    <option value="<%=role%>"
+                            <%=user.getRoles().contains(role) ? "selected" : ""%>>
+                        <%=role.getAuthority()%>
                     </option>
                     <%}%>
                 </select>

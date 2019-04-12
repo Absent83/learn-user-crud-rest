@@ -33,9 +33,9 @@
 
     <form class="form-horizontal" action="/login" method="post">
         <div class="form-group">
-            <label class="control-label col-sm-2" for="login">Login:</label>
+            <label class="control-label col-sm-2" for="username">Login:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="login" name="username" required placeholder="Enter login">
+                <input type="text" class="form-control" id="username" name="username" required placeholder="Enter login">
             </div>
         </div>
         <div class="form-group">

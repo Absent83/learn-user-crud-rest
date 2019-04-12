@@ -55,13 +55,13 @@
         <tr>
             <td><%=user.getId()%>
             </td>
-            <td><%=user.getLogin()%>
+            <td><%=user.getUsername()%>
             </td>
-            <td><%=user.getName()%>
+            <td><%=user.getFirstName()%>
             </td>
             <td><%=user.getEmail()%>
             </td>
-            <td><%=user.getRoles()%>
+            <td><%=user.getRoles().stream().map(x -> x.getAuthority()).reduce("", (x,y) -> x+y+"\n")%>
             </td>
             <td><%=user.getPassword()%>
             </td>

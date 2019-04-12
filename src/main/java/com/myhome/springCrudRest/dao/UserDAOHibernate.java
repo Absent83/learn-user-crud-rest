@@ -33,12 +33,12 @@ public class UserDAOHibernate implements UserDAO {
     }
 
     @Override
-    public Optional<User> getByLogin(String login) {
+    public Optional<User> getByUsername(String username) {
         return Optional.empty();
     }
 
 
-    public Optional<List<User>> getByName(String name) {
+    public Optional<List<User>> getByFirstName(String firstName) {
         return Optional.empty();
     }
 

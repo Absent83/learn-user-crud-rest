@@ -3,6 +3,7 @@ package com.myhome.springCrudRest.dao;
 import com.myhome.springCrudRest.model.Role;
 import com.myhome.springCrudRest.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import java.util.HashSet;
@@ -14,6 +15,8 @@ import java.util.function.Supplier;
 /**
  * @author Nick Dolgopolov (nick_kerch@mail.ru; https://github.com/Absent83/)
  */
+
+@Component
 public class RoleDAOEntityManager implements RoleDAO {
 
     //language=SQL

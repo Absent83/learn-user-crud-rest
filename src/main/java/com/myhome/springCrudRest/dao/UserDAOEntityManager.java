@@ -20,10 +20,10 @@ public class UserDAOEntityManager implements UserDAO {
     private String SQL_GET_ALL = "SELECT u FROM User u";
 
     //language=SQL
-    private String SQL_GET_BY_NAME = "SELECT u FROM User u WHERE u.name = :name";
+    private String SQL_GET_BY_FIRSTNAME = "SELECT u FROM User u WHERE u.firstName = :firstName";
 
     //language=SQL
-    private String SQL_GET_BY_LOGIN = "SELECT u FROM User u WHERE u.login = :login";
+    private String SQL_GET_BY_USERNAME = "SELECT u FROM User u WHERE u.username = :username";
 
     @Override
     public Optional<User> get(long id) {
@@ -43,11 +43,11 @@ public class UserDAOEntityManager implements UserDAO {
     }
 
     @Override
-    public Optional<User> getByLogin(String login) {
+    public Optional<User> getByUsername(String username) {
         //EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        User user = (User) entityManager.createQuery(SQL_GET_BY_LOGIN)
-                .setParameter("login", login).getSingleResult(); //todo почему подчеркивает
+        User user = (User) entityManager.createQuery(SQL_GET_BY_USERNAME)
+                .setParameter("username", username).getSingleResult(); //todo почему подчеркивает
 
 
         if (user == null){
@@ -58,11 +58,11 @@ public class UserDAOEntityManager implements UserDAO {
 
 
     @Override
-    public Optional<List<User>> getByName(String name) {
+    public Optional<List<User>> getByFirstName(String firstName) {
         //EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        List<User> users = entityManager.createQuery(SQL_GET_BY_NAME)
-                .setParameter("name", name).getResultList(); //todo почему подчеркивает "name"
+        List<User> users = entityManager.createQuery(SQL_GET_BY_FIRSTNAME)
+                .setParameter("firstName", firstName).getResultList(); //todo почему подчеркивает "name"
 
         if (users == null){
             return Optional.empty();

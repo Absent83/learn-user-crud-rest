@@ -17,15 +17,15 @@
 
     <form class="form-horizontal" action="/users/add" method="post">
         <div class="form-group">
-            <label class="control-label col-sm-2" for="login">Login:</label>
+            <label class="control-label col-sm-2" for="userName">Login:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="login" name="login" required placeholder="Enter login">
+                <input type="text" class="form-control" id="userName" name="userName" required placeholder="Enter login">
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-2" for="name">Name:</label>
+            <label class="control-label col-sm-2" for="firstName">Name:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="name" name="name" required placeholder="Enter name">
+                <input type="text" class="form-control" id="firstName" name="firstName" required placeholder="Enter name">
             </div>
         </div>
         <div class="form-group">

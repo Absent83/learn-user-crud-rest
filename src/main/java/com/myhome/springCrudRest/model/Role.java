@@ -1,5 +1,7 @@
 package com.myhome.springCrudRest.model;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -9,27 +11,21 @@ import java.util.Set;
 
 @Entity
 @Table(name="roles")
-public class Role {
+public class Role implements GrantedAuthority {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", unique = true, nullable = false)
-    private String name;
+    @Column(name = "authority", unique = true, nullable = false)
+    private String authority;
 
-    @ManyToMany(mappedBy = "userRoles")
+    @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public Long getId() {
         return id;
@@ -45,5 +41,14 @@ public class Role {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
+
+    @Override
+    public String getAuthority() {
+        return authority;
     }
 }

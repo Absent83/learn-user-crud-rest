@@ -1,9 +1,7 @@
 package com.myhome.springCrudRest.service;
 
 
-import com.myhome.springCrudRest.model.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,13 +17,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
 
-		UserDetails userDetails = new UserDetailsImpl(userService.getByLogin(username).orElseThrow(IllegalArgumentException::new));
+		UserDetails userDetails = userService.getByUserName(username).orElseThrow(IllegalArgumentException::new);
 		System.out.println("login:" + userDetails.getUsername() + "; password:" + userDetails.getPassword());
-
-		for (GrantedAuthority authority : userDetails.getAuthorities()) {
-			System.out.println(authority.getAuthority());
-		}
-
 
 		return userDetails;
 	}
