@@ -1,5 +1,5 @@
 <%@ page import="com.myhome.springCrudRest.model.User" %>
-<%@ page import="com.myhome.springCrudRest.model.UserRole" %>
+<%@ page import="com.myhome.springCrudRest.model.Role" %>
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -54,15 +54,15 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-2" for="userRoles">Roles:</label>
+            <label class="control-label col-sm-2" for="roles">Roles:</label>
             <div class="col-sm-10">
 
-                <select multiple class="form-control" id="userRoles" name="userRoles" required>
+                <select multiple class="form-control" id="roles" name="roles" required>
                     <%
-                        for (int i = 0; i < UserRole.values().length; i++) {%>
-                    <option value="<%=UserRole.values()[i]%>"
-                            <%=user.getUserRoles().contains(UserRole.values()[i]) ? "selected" : ""%>>
-                        <%=UserRole.values()[i]%>
+                        for (int i = 0; i < Role.values().length; i++) {%>
+                    <option value="<%=Role.values()[i]%>"
+                            <%=user.getRoles().contains(Role.values()[i]) ? "selected" : ""%>>
+                        <%=Role.values()[i]%>
                     </option>
                     <%}%>
                 </select>

@@ -61,7 +61,7 @@
             </td>
             <td><%=user.getEmail()%>
             </td>
-            <td><%=user.getUserRoles()%>
+            <td><%=user.getRoles()%>
             </td>
             <td><%=user.getPassword()%>
             </td>

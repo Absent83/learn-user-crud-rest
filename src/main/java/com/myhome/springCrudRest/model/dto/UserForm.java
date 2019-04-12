@@ -1,22 +1,22 @@
 package com.myhome.springCrudRest.model.dto;
 
-import com.myhome.springCrudRest.model.UserRole;
+import com.myhome.springCrudRest.model.Role;
 
 public class UserForm {
 
     private String name;
     private String email;
     private String password;
-    private UserRole userRole;
+    private Role role;
 
     public UserForm() {
     }
 
-    public UserForm(String name, String email, String password, UserRole userRole) {
+    public UserForm(String name, String email, String password, Role role) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.userRole = userRole;
+        this.role = role;
     }
 
     public String getName() {
@@ -35,12 +35,12 @@ public class UserForm {
         this.email = email;
     }
 
-    public UserRole getUserRole() {
-        return userRole;
+    public Role getRole() {
+        return role;
     }
 
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getPassword() {

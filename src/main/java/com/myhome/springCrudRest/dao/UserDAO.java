@@ -15,5 +15,4 @@ public interface UserDAO { //CRUD Create Read Update Delete
     void add(User user);
     void update(User user);
     void delete(long id);
-
 }

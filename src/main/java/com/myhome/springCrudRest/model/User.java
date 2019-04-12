@@ -24,21 +24,22 @@ public class User {
     private String password;
 
 
-    @ElementCollection(targetClass = UserRole.class)
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "role", nullable = false)
-    private Set<UserRole> userRoles;
+    @ManyToMany
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
     public User() {
     }
 
-    public User(String login, String name, String email, String password, Set<UserRole> userRoles) {//todo какие требования Spring? Какие требовани Hibernate?
+    public User(String login, String name, String email, String password, Set<Role> roles) {//todo какие требования Spring? Какие требовани Hibernate?
         this.login = login;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.userRoles = userRoles;
+        this.roles = roles;
     }
 
 
@@ -66,12 +67,12 @@ public class User {
         this.email = email;
     }
 
-    public Set<UserRole> getUserRoles() {
-        return userRoles;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setUserRoles(Set<UserRole> userRole) {
-        this.userRoles = userRole;
+    public void setRoles(Set<Role> role) {
+        this.roles = role;
     }
 
     public String getPassword() {

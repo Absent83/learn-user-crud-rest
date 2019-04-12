@@ -5,7 +5,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 
 /**
@@ -28,8 +27,8 @@ public class UserDetailsImpl implements UserDetails {
 
         Collection<SimpleGrantedAuthority> authorities = new HashSet<>();
 
-        for (UserRole userRole : user.getUserRoles()) {
-            SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(userRole.toString());
+        for (Role role : user.getRoles()) {
+            SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(role.toString());
             authorities.add(simpleGrantedAuthority);
         }
 

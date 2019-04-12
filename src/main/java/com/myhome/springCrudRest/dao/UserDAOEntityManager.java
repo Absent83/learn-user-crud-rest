@@ -61,11 +61,8 @@ public class UserDAOEntityManager implements UserDAO {
     public Optional<List<User>> getByName(String name) {
         //EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        entityManager.getTransaction().begin();
         List<User> users = entityManager.createQuery(SQL_GET_BY_NAME)
                 .setParameter("name", name).getResultList(); //todo почему подчеркивает "name"
-        entityManager.getTransaction().commit();
-
 
         if (users == null){
             return Optional.empty();
@@ -77,9 +74,7 @@ public class UserDAOEntityManager implements UserDAO {
     @Override
     public Optional<List<User>> getAll() {
 
-        entityManager.getTransaction().begin();
         List<User> users = entityManager.createQuery(SQL_GET_ALL).getResultList();
-        entityManager.getTransaction().commit();
 
         if (users == null){
             return Optional.empty();
@@ -90,32 +85,18 @@ public class UserDAOEntityManager implements UserDAO {
 
     @Override
     public void add(User user) {
-        entityManager.getTransaction().begin();
         entityManager.merge(user);
-        entityManager.getTransaction().commit();
     }
 
 
     @Override
     public void update(User user) {
-        entityManager.getTransaction().begin();
         entityManager.merge(user);
-        entityManager.getTransaction().commit();
     }
 
 
     @Override
     public void delete(long id) {
-
-        Optional<User> userCandidate = get(id);
-
-        if (userCandidate.isPresent()){
-            entityManager.getTransaction().begin();
-            entityManager.remove(userCandidate.get());
-            entityManager.getTransaction().commit();
-        }
-        else {
-            throw new IllegalArgumentException();
-        }
+        entityManager.remove(get(id).orElseThrow(IllegalArgumentException::new));
     }
 }
