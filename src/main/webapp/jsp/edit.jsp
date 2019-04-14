@@ -21,15 +21,19 @@
 
 <div class="container">
     <h1>Edit user:</h1>
+    <form
+            action="/users/edit"
+            method="POST"
+            class="form-horizontal">
 
-    <form class="form-horizontal" action="/users/edit" method="post">
         <div class="form-group">
-            <label class="control-label col-sm-2" for="userId">Id:</label>
+            <label class="control-label col-sm-2" for="id">Id:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="userId" name="id" value="<%=user.getId()%>" readonly
+                <input type="text" class="form-control" id="id" name="id" value="<%=user.getId()%>" readonly
                        required>
             </div>
         </div>
+
         <div class="form-group">
             <label class="control-label col-sm-2" for="username">Login:</label>
             <div class="col-sm-10">
@@ -61,9 +65,8 @@
             <div class="col-sm-10">
 
                 <select multiple class="form-control" id="roles" name="roles" required>
-                    <%
-                        for (Role role : allRoles) {%>
-                    <option value="<%=role%>"
+                    <%for (Role role : allRoles) {%>
+                    <option name="id" value="<%=role.getId()%>"
                             <%=user.getRoles().contains(role) ? "selected" : ""%>>
                         <%=role.getAuthority()%>
                     </option>

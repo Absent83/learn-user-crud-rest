@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,7 +86,7 @@ public class UserDAOEntityManager implements UserDAO {
 
     @Override
     public void add(User user) {
-        entityManager.merge(user);
+        entityManager.persist(user);
     }
 
 

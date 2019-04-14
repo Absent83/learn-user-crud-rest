@@ -1,5 +1,6 @@
-<%@ page import="com.myhome.springCrudRest.model.User" %>
 <%@ page import="com.myhome.springCrudRest.model.Role" %>
+<%@ page import="java.util.Set" %>
+<%@ page import="java.util.HashSet" %>
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -12,14 +13,18 @@
 
 <body>
 
+<%
+    Set<Role> allRoles = (HashSet<Role>) request.getAttribute("rolesFromServer");
+%>
+
 <div class="container">
     <h1>Add user:</h1>
 
     <form class="form-horizontal" action="/users/add" method="post">
         <div class="form-group">
-            <label class="control-label col-sm-2" for="userName">Login:</label>
+            <label class="control-label col-sm-2" for="username">Login:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="userName" name="userName" required placeholder="Enter login">
+                <input type="text" class="form-control" id="username" name="username" required placeholder="Enter login">
             </div>
         </div>
         <div class="form-group">
@@ -45,11 +50,9 @@
             <label class="control-label col-sm-2" for="roles">Role:</label>
             <div class="col-sm-10">
                 <select multiple class="form-control" id="roles" name="roles" required>
-                    <%
-                        for (int i = 0; i < Role.values().length; i++) {%>
-                    <option value="<%=Role.values()[i]%>"
-                            <%=Role.values()[i] == Role.USER ? "selected" : ""%>>
-                        <%=Role.values()[i]%>
+                    <%for (Role role : allRoles) {%>
+                    <option name="id" value="<%=role.getId()%>">
+                        <%=role.getAuthority()%>
                     </option>
                     <%}%>
                 </select>

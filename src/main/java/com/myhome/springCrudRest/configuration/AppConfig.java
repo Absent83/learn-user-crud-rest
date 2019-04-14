@@ -1,12 +1,15 @@
 package com.myhome.springCrudRest.configuration;
 
+import com.myhome.springCrudRest.converter.RoleConverter;
 import com.myhome.springCrudRest.model.Role;
 import com.myhome.springCrudRest.model.User;
 import com.myhome.springCrudRest.util.PropertiesReader;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.service.ServiceRegistry;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -27,6 +30,9 @@ import javax.persistence.EntityManager;
 @ComponentScan(basePackages = "com.myhome.springCrudRest")
 @Import({ SecurityConfig.class })
 public class AppConfig implements WebMvcConfigurer {
+
+    @Autowired
+    RoleConverter roleConverter;
 
 
     @Override
@@ -51,6 +57,11 @@ public class AppConfig implements WebMvcConfigurer {
         return bean;
     }
 
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(roleConverter);
+    }
 
     private static class HibernateEntityManagerHolder {
         private static final EntityManager ENTITY_MANAGER = new HibernateEntityManagerFactory(
