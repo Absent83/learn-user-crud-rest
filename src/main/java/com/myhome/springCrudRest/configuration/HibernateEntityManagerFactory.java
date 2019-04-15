@@ -54,7 +54,7 @@ public class HibernateEntityManagerFactory {
         Properties properties = new Properties();
 
         properties.put("hibernate.dialect", propertiesHibernateReader.getProperties("dialect"));
-        properties.put("hibernate.id.new_generator_mappings", propertiesHibernateReader.getProperties("id.new_generator_mappings"));
+        //properties.put("hibernate.id.new_generator_mappings", propertiesHibernateReader.getProperties("id.new_generator_mappings"));
         properties.put("hibernate.show_sql", propertiesHibernateReader.getProperties("show_sql"));
         properties.put("hibernate.hbm2ddl.auto",  propertiesHibernateReader.getProperties("hbm2ddl.auto"));
         properties.put("hibernate.connection.datasource", getMysqlDataSource());

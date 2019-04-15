@@ -62,8 +62,9 @@ public class RoleDAOEntityManager implements RoleDAO {
 
     @Override
     public void update(Role role) {
+        //entityManager.getTransaction().begin();
         entityManager.merge(role);
-
+        //entityManager.getTransaction().commit();
     }
 
 

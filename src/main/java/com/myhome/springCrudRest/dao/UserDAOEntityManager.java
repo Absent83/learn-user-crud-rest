@@ -92,7 +92,10 @@ public class UserDAOEntityManager implements UserDAO {
 
     @Override
     public void update(User user) {
+        entityManager.getTransaction().begin();
         entityManager.merge(user);
+        entityManager.getTransaction().commit();
+
     }
 
 

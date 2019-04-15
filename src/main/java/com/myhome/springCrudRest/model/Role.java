@@ -21,8 +21,8 @@ public class Role implements GrantedAuthority {
     @Column(name = "authority", unique = true, nullable = false)
     private String authority;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+//    @ManyToMany(mappedBy = "roles")
+//    private Set<User> users; //todo тут можно не хранить список юзеров
 
 
 
@@ -35,13 +35,13 @@ public class Role implements GrantedAuthority {
         this.id = id;
     }
 
-    public Set<User> getUsers() {
-        return users;
-    }
+//    public Set<User> getUsers() {
+//        return users;
+//    }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
+//    public void setUsers(Set<User> users) {
+//        this.users = users;
+//    }
 
     public void setAuthority(String authority) {
         this.authority = authority;
