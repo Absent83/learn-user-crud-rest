@@ -3,18 +3,21 @@ package com.myhome.springCrudRest.dao;
 import com.myhome.springCrudRest.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-
+//@Repository
 @Component
 public class UserDAOEntityManager implements UserDAO {
 
-    //  @PersistenceContext //todo когда используется @PersistenceContext ??
-    @Autowired
+    //todo когда используется @PersistenceContext ??
+    //@Autowired
+    @PersistenceContext
     EntityManager entityManager;
 
     //language=SQL
@@ -28,74 +31,40 @@ public class UserDAOEntityManager implements UserDAO {
 
     @Override
     public Optional<User> get(long id) {
-        //EntityManager entityManager = entityManagerFactory.createEntityManager();
-
-        //entityManager.getTransaction().begin(); //todo посмотреть, нужны ли транзакции
-        User user = entityManager.find(User.class, id);
-        //entityManager.detach(user);
-        //entityManager.getTransaction().commit();
-
-
-        if (user == null) {
-            return Optional.empty();
-        } else {
-            return Optional.of(user);
-        }
+        return Optional.ofNullable(entityManager.find(User.class, id));
     }
 
     @Override
     public Optional<User> getByUsername(String username) {
-        //EntityManager entityManager = entityManagerFactory.createEntityManager();
-
         User user = (User) entityManager.createQuery(SQL_GET_BY_USERNAME)
                 .setParameter("username", username).getSingleResult(); //todo почему подчеркивает
 
-
-        if (user == null){
-            return Optional.empty();
-        }
-        else return Optional.of(user);
+        return Optional.ofNullable(user);
     }
 
 
     @Override
-    public Optional<List<User>> getByFirstName(String firstName) {
-        //EntityManager entityManager = entityManagerFactory.createEntityManager();
-
-        List<User> users = entityManager.createQuery(SQL_GET_BY_FIRSTNAME)
-                .setParameter("firstName", firstName).getResultList(); //todo почему подчеркивает "name"
-
-        if (users == null){
-            return Optional.empty();
-        }
-        else return Optional.of(users);
+    public List<User> getByFirstName(String firstName) {
+        return entityManager.createQuery(SQL_GET_BY_FIRSTNAME)
+                .setParameter("firstName", firstName).getResultList();
     }
 
 
     @Override
-    public Optional<List<User>> getAll() {
-
-        List<User> users = entityManager.createQuery(SQL_GET_ALL).getResultList();
-
-        if (users == null){
-            return Optional.empty();
-        }
-        else return Optional.of(users);
+    public List<User> getAll() {
+        return entityManager.createQuery(SQL_GET_ALL).getResultList();
     }
 
 
     @Override
     public void add(User user) {
-        entityManager.persist(user);
+        entityManager.merge(user);
     }
 
 
     @Override
     public void update(User user) {
-        entityManager.getTransaction().begin();
         entityManager.merge(user);
-        entityManager.getTransaction().commit();
-
     }
 
 

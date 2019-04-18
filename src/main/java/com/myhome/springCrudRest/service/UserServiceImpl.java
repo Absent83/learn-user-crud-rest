@@ -4,11 +4,14 @@ import com.myhome.springCrudRest.dao.UserDAO;
 import com.myhome.springCrudRest.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+
+//@Service
 @Component
 public class UserServiceImpl implements UserService {
 
@@ -16,26 +19,26 @@ public class UserServiceImpl implements UserService {
     private UserDAO userDAO;
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<User> get(long id) {
         return userDAO.get(id);
     }
 
     @Override
-    @Transactional
-    public Optional<User> getByUserName(String userName) {
+    @Transactional(readOnly = true)
+    public Optional<User> getByUsername(String userName) {
         return userDAO.getByUsername(userName);
     }
 
     @Override
-    @Transactional
-    public Optional<List<User>> getByFirstName(String firstName) {
+    @Transactional(readOnly = true)
+    public List<User> getByFirstName(String firstName) {
         return userDAO.getByFirstName(firstName);
     }
 
     @Override
-    @Transactional
-    public Optional<List<User>> getAll() {
+    @Transactional(readOnly = true)
+    public List<User> getAll() {
         return userDAO.getAll();
     }
 

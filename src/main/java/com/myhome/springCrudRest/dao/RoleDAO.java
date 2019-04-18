@@ -2,6 +2,7 @@ package com.myhome.springCrudRest.dao;
 
 import com.myhome.springCrudRest.model.Role;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -11,7 +12,7 @@ import java.util.Set;
 public interface RoleDAO {
     Optional<Role> get(long id);
 
-    Optional<Set<Role>> getAll();
+    List<Role> getAll();
 
     void add(Role role);
 

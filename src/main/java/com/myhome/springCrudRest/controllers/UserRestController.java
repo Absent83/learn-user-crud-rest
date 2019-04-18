@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,25 +20,17 @@ public class UserRestController {
 
 
     @GetMapping(path = "/api/users")
-    public List<User> getAllUsers(@RequestParam(name = "username", required = false) String userName){
-
-        Optional<List<User>> usersCandidate;
-
-        if (userName == null || userName.isEmpty()){
-            usersCandidate = userService.getAll();
-        }
-        else {
-            usersCandidate = userService.getByFirstName(userName);
-        }
+    public List<User> getAllUsers(@RequestParam(name = "username", required = false) String username){
 
         List<User> users = null;
 
-        if (usersCandidate.isPresent()){ //todo переделать на функциональную запись
-            users = usersCandidate.get();
+        if (username == null || username.isEmpty()){
+            users = userService.getAll();
         }
         else {
-            throw (new IllegalArgumentException());
+            users = Collections.singletonList(userService.getByUsername(username).orElseThrow(IllegalArgumentException::new));
         }
+
         return users;
     }
 

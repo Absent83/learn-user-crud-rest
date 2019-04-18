@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -35,17 +36,7 @@ public class UserController {
     @GetMapping(path = "/users/list")
     public ModelAndView getAllUsersList() {
 
-        Optional<List<User>> usersCandidate;
-        usersCandidate = userService.getAll();
-
-        List<User> users = null;
-
-        if (usersCandidate.isPresent()) {
-            users = usersCandidate.get();
-        } else {
-            throw (new IllegalArgumentException());
-        }
-
+        List<User> users = userService.getAll();
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("list");
@@ -68,7 +59,7 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("edit");
         modelAndView.addObject("userFromServer", user);
-        modelAndView.addObject("rolesFromServer", roleService.getAll().orElseThrow(IllegalArgumentException::new)); //todo тут какой Exception?
+        modelAndView.addObject("rolesFromServer", roleService.getAll());
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         modelAndView.addObject("userAuthorizedLogin", userDetails.getUsername());
@@ -99,7 +90,7 @@ public class UserController {
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         modelAndView.addObject("userAuthorizedLogin", userDetails.getUsername());
-        modelAndView.addObject("rolesFromServer", roleService.getAll().orElseThrow(IllegalArgumentException::new)); //todo тут какой Exception?
+        modelAndView.addObject("rolesFromServer", roleService.getAll());
 
         return modelAndView;
     }

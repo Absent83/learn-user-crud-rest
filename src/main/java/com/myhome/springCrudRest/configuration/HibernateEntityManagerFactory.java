@@ -16,9 +16,6 @@ import java.util.stream.Collectors;
 
 public class HibernateEntityManagerFactory {
 
-//    private final String DB_URL = "jdbc:mysql://databaseurl";
-//    private final String DB_USER_NAME = "username";
-//    private final String DB_PASSWORD = "password";
     private final Class[] entityClasses;
 
     public HibernateEntityManagerFactory(Class[] entityClasses) {
@@ -30,7 +27,7 @@ public class HibernateEntityManagerFactory {
         return getEntityManagerFactory().createEntityManager();
     }
 
-    private EntityManagerFactory getEntityManagerFactory() {
+    public EntityManagerFactory getEntityManagerFactory() { //todo
         PersistenceUnitInfo persistenceUnitInfo = getPersistenceUnitInfo(getClass().getSimpleName());
         Map<String, Object> configuration = new HashMap<>();
         return new EntityManagerFactoryBuilderImpl(new PersistenceUnitInfoDescriptor(persistenceUnitInfo), configuration)

@@ -7,6 +7,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +16,6 @@ public class UserDAOHibernate implements UserDAO {
 
     private SessionFactory sessionFactory;
 
-    @Autowired
     public UserDAOHibernate(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
@@ -38,13 +38,13 @@ public class UserDAOHibernate implements UserDAO {
     }
 
 
-    public Optional<List<User>> getByFirstName(String firstName) {
-        return Optional.empty();
+    public List<User> getByFirstName(String firstName) {
+        return new ArrayList<>();
     }
 
     @Override
-    public Optional<List<User>> getAll() {
-        return Optional.empty();
+    public List<User> getAll() {
+        return new ArrayList<>();
     }
 
 

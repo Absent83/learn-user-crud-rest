@@ -7,10 +7,10 @@ import java.util.Optional;
 
 public interface UserService {
     Optional<User> get(long id);
-    Optional<User> getByUserName(String userName);
+    Optional<User> getByUsername(String userName);
 
-    Optional<List<User>> getAll();
-    Optional<List<User>> getByFirstName(String firstName);
+    List<User> getAll();
+    List<User> getByFirstName(String firstName);
 
     void add(User user);
     void update(User user);

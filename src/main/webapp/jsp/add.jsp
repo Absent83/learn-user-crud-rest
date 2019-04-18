@@ -1,6 +1,8 @@
 <%@ page import="com.myhome.springCrudRest.model.Role" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="java.util.HashSet" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.AbstractList" %>
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -14,7 +16,7 @@
 <body>
 
 <%
-    Set<Role> allRoles = (HashSet<Role>) request.getAttribute("rolesFromServer");
+    List<Role> allRoles = (AbstractList<Role>) request.getAttribute("rolesFromServer");
 %>
 
 <div class="container">

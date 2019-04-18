@@ -4,15 +4,17 @@ import com.myhome.springCrudRest.dao.RoleDAO;
 import com.myhome.springCrudRest.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * @author Nick Dolgopolov (nick_kerch@mail.ru; https://github.com/Absent83/)
  */
 
+//@Service
 @Component
 public class RoleServiceImpl implements RoleService {
 
@@ -20,14 +22,14 @@ public class RoleServiceImpl implements RoleService {
     private RoleDAO roleDAO;
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<Role> get(long id) {
         return roleDAO.get(id);
     }
 
     @Override
-    @Transactional
-    public Optional<Set<Role>> getAll() {
+    @Transactional(readOnly = true)
+    public List<Role> getAll() {
         return roleDAO.getAll();
     }
 
