@@ -39,7 +39,7 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String username, String firstName, String email, String password, Set<Role> roles) {//todo какие требования Spring? Какие требовани Hibernate?
+    public User(String username, String firstName, String email, String password, Set<Role> roles) {
         this.username = username;
         this.firstName = firstName;
         this.email = email;

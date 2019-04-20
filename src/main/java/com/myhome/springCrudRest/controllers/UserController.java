@@ -26,11 +26,17 @@ import java.util.Optional;
 @Controller
 public class UserController {
 
-    @Autowired
+    private final
     UserService userService;
 
-    @Autowired
+    private final
     RoleService roleService;
+
+    @Autowired
+    public UserController(UserService userService, RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
 
     @GetMapping(path = "/users/list")
@@ -54,7 +60,7 @@ public class UserController {
 
         Optional<User> userCandidate = userService.get(userId);
 
-        User user = userCandidate.get();
+        User user = userCandidate.orElseThrow(IllegalArgumentException::new);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("edit");
@@ -101,7 +107,7 @@ public class UserController {
 
         userService.add(user);
 
-        return "redirect:/users/list"; //todo в чем разница этих двух редиректов
+        return "redirect:/users/list";
 
 //        RedirectView redirectView = new RedirectView("/users/list");
 //        //redirectView.setStatusCode(HttpStatus.MOVED_PERMANENTLY);

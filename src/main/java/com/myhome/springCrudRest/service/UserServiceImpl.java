@@ -3,7 +3,6 @@ package com.myhome.springCrudRest.service;
 import com.myhome.springCrudRest.dao.UserDAO;
 import com.myhome.springCrudRest.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,12 +10,16 @@ import java.util.List;
 import java.util.Optional;
 
 
-//@Service
-@Component
+@Service
+//@Component
 public class UserServiceImpl implements UserService {
 
+    private final UserDAO userDAO;
+
     @Autowired
-    private UserDAO userDAO;
+    public UserServiceImpl(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
     @Override
     @Transactional(readOnly = true)

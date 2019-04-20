@@ -14,10 +14,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
-//todo по этому классу нет понимания
 public class HibernatePersistenceUnitInfo implements PersistenceUnitInfo {
 
-    public static final String JPA_VERSION = "2.2"; //todo где определяем в проекте? в pom.xml?
+    private static final String JPA_VERSION = "2.2";
     private final String persistenceUnitName;
     private PersistenceUnitTransactionType transactionType = PersistenceUnitTransactionType.RESOURCE_LOCAL;
     private final List<String> managedClassNames;
@@ -27,7 +26,7 @@ public class HibernatePersistenceUnitInfo implements PersistenceUnitInfo {
     private DataSource nonjtaDataSource;
     private final List<ClassTransformer> transformers = new ArrayList<>();
 
-    public HibernatePersistenceUnitInfo(String persistenceUnitName, List<String> managedClassNames, Properties properties) {
+    HibernatePersistenceUnitInfo(String persistenceUnitName, List<String> managedClassNames, Properties properties) {
         this.persistenceUnitName = persistenceUnitName;
         this.managedClassNames = managedClassNames;
         this.properties = properties;

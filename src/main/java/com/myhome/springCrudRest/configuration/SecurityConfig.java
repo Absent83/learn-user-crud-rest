@@ -1,41 +1,37 @@
 package com.myhome.springCrudRest.configuration;
 
-/**
- * @author Nick Dolgopolov (nick_kerch@mail.ru; https://github.com/Absent83/)
- */
-
-
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.*;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-import java.util.Collection;
+/**
+ * @author Nick Dolgopolov (nick_kerch@mail.ru; https://github.com/Absent83/)
+ */
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-    @Autowired
+    private final
     UserDetailsService userDetailsService;
+
+    @Autowired
+    public SecurityConfig(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/"); //не использовать цепочки фильтров (отключается Security) для указанных url (для общих ресурсов)
     }
 
@@ -58,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .and()
 
                 .authorizeRequests()
-                    .antMatchers("/users/**", "/users", "/api/users/**", "/api/users") //todo разница /users и /users/
+                .antMatchers("/users/**", "/users", "/api/users/**", "/api/users")
                     .hasAuthority("ADMIN")
                     .and()
 
@@ -110,8 +106,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder(){
-        PasswordEncoder encoder = NoOpPasswordEncoder.getInstance();
-        return encoder;
+        return NoOpPasswordEncoder.getInstance();
     }
 
 
