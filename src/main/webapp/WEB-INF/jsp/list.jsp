@@ -1,7 +1,6 @@
 <%@ page import="com.myhome.springCrudRest.model.User" %>
-<%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="org.springframework.security.core.userdetails.UserDetails" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="en-US">
 
