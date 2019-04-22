@@ -1,1 +1,1 @@
-Studt project at JavaMentor (http://java-mentor.com/)
+Study project at JavaMentor (http://java-mentor.com/)
