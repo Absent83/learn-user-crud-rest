@@ -18,7 +18,7 @@ public class LoginController {
     public String getLoginPage(ModelMap model, HttpServletRequest httpServletRequest) {
         System.out.println("getLoginPage");
         if (httpServletRequest.getParameterMap().containsKey("error")){
-            model.addAttribute("error", "true");
+            model.addAttribute("error", true);
         }
 
         return "login";

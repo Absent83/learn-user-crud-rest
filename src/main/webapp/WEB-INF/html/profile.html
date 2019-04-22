@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Profile</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <h1>Profile</h1>
+        </div>
+        <div class="col-sm-4 offset-sm-8 align-self-center">
+            <div class="btn btn-default" th:text="${'userAuthorizedLogin: '+userAuthorizedLogin}"></div>
+            <a class="btn btn-default" href="/logout">Logout</a>
+        </div>
+    </div>
+</div>
+
+
+<p th:text="'contextPath:'+${#request.contextPath}"></p>
+<p>contextPath: <%=request.getContextPath()%></p>
+<p>contextPath: ${pageContext.request.contextPath}</p>
+
+</body>
+</html>

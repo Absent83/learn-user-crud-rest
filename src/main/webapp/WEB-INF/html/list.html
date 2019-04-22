@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>List of users</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <h1>List of users</h1>
+        </div>
+        <div class="col-sm-4 offset-sm-8 align-self-center">
+            <a class="btn btn-default" href="/profile" th:text="${'userAuthorizedLogin: ' + userAuthorizedLogin}"></a>
+            <a class="btn btn-default" href="/logout">Logout</a>
+        </div>
+    </div>
+
+    <p th:text="'Count: '+${usersFromServer.size()}"></p>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Login</th>
+            <th>Name</th>
+            <th>E-mail</th>
+            <th>Roles</th>
+            <th>Password</th>
+            <th></th>
+            <th>
+                <form>
+                    <button formaction="/users/add" formmethod="get" type="submit">Add</button>
+                </form>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="user : ${usersFromServer}">
+            <tr>
+                <td th:text="${user.getId()}">
+                </td>
+                <td th:text="${user.getUsername()}">
+                </td>
+                <td th:text="${user.getFirstName()}">
+                </td>
+                <td th:text="${user.getEmail()}">
+                </td>
+                <td>
+                    <th:block th:each="role:${user.getRoles()}">
+                        <p th:text="${role.getAuthority()}"></p>
+                    </th:block>
+                </td>
+                <td th:text="${user.getPassword()}">
+                </td>
+                <td>
+                    <form action="/users/edit" method="get">
+                        <input name="userId" th:value="${user.getId()}" type="hidden"/>
+                        <input type="submit" value="Edit">
+                    </form>
+                </td>
+                <td>
+                    <form>
+                        <button formaction="/users/delete" formmethod="post" name="userId" th:value="${user.getId()}"
+                                type="submit">Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        </th:block>
+
+        </tbody>
+    </table>
+</div>
+
+
+<p>contextPath: <%=request.getContextPath()%></p>
+<p>contextPath: ${pageContext.request.contextPath}</p>
+
+</body>
+</html>

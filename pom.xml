@@ -57,6 +57,12 @@
             <version>RELEASE</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+
 
         <!--To enable support for JSP’s, we would need to add a dependency on tomcat-embed-jasper.-->
         <dependency>
