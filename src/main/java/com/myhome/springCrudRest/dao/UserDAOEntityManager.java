@@ -17,7 +17,7 @@ public class UserDAOEntityManager implements UserDAO {
     EntityManager entityManager;
 
     //language=SQL
-    private String SQL_GET_ALL = "SELECT u FROM User u";
+    private String SQL_GET_ALL = "SELECT u FROM User u ORDER BY u.id";
 
     //language=SQL
     private String SQL_GET_BY_FIRSTNAME = "SELECT u FROM User u WHERE u.firstName = :firstName";
