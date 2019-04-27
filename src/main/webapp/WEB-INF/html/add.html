@@ -1,18 +1,11 @@
-<!DOCTYPE html>
-<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <title>Add user</title>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
-</head>
+<!doctype html>
+<html lang="en"
+      layout:decorate="defaultadmin" th:with="currentAdminBar='newuser'"
+      xmlns:layout="http://www.thymeleaf.org/" xmlns:th="http://www.thymeleaf.org">
 
 <body>
-
-<div class="container">
-    <h1>Add user:</h1>
-
+<div layout:fragment="contentadmin">
+    <h2 class="sub-header">Add new user</h2>
     <form action="/users/add" class="form-horizontal" method="post">
         <div class="form-group">
             <label class="control-label col-sm-2" for="username">Login:</label>
@@ -66,6 +59,9 @@
         </div>
     </form>
 </div>
-
 </body>
+
 </html>
+
+
+

@@ -1,123 +1,66 @@
-<!--Example: https://getbootstrap.com/docs/3.4/examples/dashboard/-->
-
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta content="" name="description">
-    <meta content="" name="author">
-    <link href="" rel="icon">
-    <link href="https://getbootstrap.com/docs/3.4/examples/dashboard/" rel="canonical">
-
-    <title>Dashboard Template for Bootstrap</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet">
-
-
-    <!-- Custom styles for this template -->
-    <link href="/dashboard.css" rel="stylesheet">
-
-</head>
+<html lang="en"
+      layout:decorate="defaultadmin" th:with="currentAdminBar='list'"
+      xmlns:layout="http://www.thymeleaf.org/" xmlns:th="http://www.thymeleaf.org">
 
 <body>
-
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar"
-                    data-toggle="collapse" type="button">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div class="navbar-collapse collapse" id="navbar">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Logout</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-                <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Reports</a></li>
-
-            </ul>
-
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">Admin panel</h1>
-
-
-            <h2 class="sub-header">All users</h2>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Login</th>
-                        <th>Name</th>
-                        <th>E-mail</th>
-                        <th>Roles</th>
-                        <th>Password</th>
-                        <th></th>
-                        <th>
-                            <form>
-                                <button formaction="/users/add" formmethod="get" type="submit">Add</button>
-                            </form>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <th:block th:each="user : ${usersFromServer}">
-                        <tr>
-                            <td th:text="${user.getId()}">
-                            </td>
-                            <td th:text="${user.getUsername()}">
-                            </td>
-                            <td th:text="${user.getFirstName()}">
-                            </td>
-                            <td th:text="${user.getEmail()}">
-                            </td>
-                            <td>
-                                <th:block th:each="role:${user.getRoles()}">
-                                    <p th:text="${role.getAuthority()}"></p>
-                                </th:block>
-                            </td>
-                            <td th:text="${user.getPassword()}">
-                            </td>
-                            <td>
-                                <form action="/users/edit" method="get">
-                                    <input name="userId" th:value="${user.getId()}" type="hidden"/>
-                                    <input type="submit" value="Edit">
-                                </form>
-                            </td>
-                            <td>
-                                <form>
-                                    <button formaction="/users/delete" formmethod="post" name="userId"
-                                            th:value="${user.getId()}"
-                                            type="submit">Delete
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    </th:block>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<div layout:fragment="contentadmin">
+    <h2 class="sub-header">All users</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Login</th>
+                <th>Name</th>
+                <th>E-mail</th>
+                <th>Roles</th>
+                <th>Password</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="user : ${usersFromServer}">
+                <tr>
+                    <td th:text="${user.getId()}">
+                    </td>
+                    <td th:text="${user.getUsername()}">
+                    </td>
+                    <td th:text="${user.getFirstName()}">
+                    </td>
+                    <td th:text="${user.getEmail()}">
+                    </td>
+                    <td>
+                        <th:block th:each="role:${user.getRoles()}">
+                            <p th:text="${role.getAuthority()}"></p>
+                        </th:block>
+                    </td>
+                    <td th:text="${user.getPassword()}">
+                    </td>
+                    <td>
+                        <form action="/users/edit" method="get">
+                            <input name="userId" th:value="${user.getId()}" type="hidden"/>
+                            <button class="btn btn-primary" type="submit">
+                                Edit
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        <form>
+                            <button class="btn btn-danger" formaction="/users/delete" formmethod="post"
+                                    name="userId"
+                                    th:value="${user.getId()}" type="submit">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
     </div>
 </div>
-
-
 </body>
+
 </html>

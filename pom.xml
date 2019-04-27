@@ -63,6 +63,12 @@
             <version>RELEASE</version>
         </dependency>
 
+        <dependency>
+            <groupId>nz.net.ultraq.thymeleaf</groupId>
+            <artifactId>thymeleaf-layout-dialect</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+
 
         <!--To enable support for JSP’s, we would need to add a dependency on tomcat-embed-jasper.-->
         <dependency>
