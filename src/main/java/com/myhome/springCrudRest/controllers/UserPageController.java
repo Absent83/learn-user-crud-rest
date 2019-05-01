@@ -1,5 +1,6 @@
 package com.myhome.springCrudRest.controllers;
 
+import com.myhome.springCrudRest.model.User;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,15 @@ public class UserPageController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("profile");
 
-        modelAndView.addObject("userAuthorizedLogin", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        String name;
+
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof User) {
+            name = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        } else {
+            name = "annnnnnnnonim";
+        }
+
+        modelAndView.addObject("userAuthorizedLogin", name);
 
         return modelAndView;
     }
