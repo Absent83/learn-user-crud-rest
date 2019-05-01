@@ -35,7 +35,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <th:block th:each="user : ${usersFromServer}">
+                    <th:block th:each="user:${usersFromServer}">
                         <tr>
                             <td th:text="${user.getId()}">
                             </td>
@@ -65,7 +65,7 @@
 
                                         <!-- Modal content-->
                                         <div class="modal-content">
-                                            <div th:replace="edit1::useredit(currentuser=${user},rolesFromServer=${rolesFromServer})"></div>
+                                            <div th:replace="edit::useredit(currentuser=${user},rolesFromServer=${rolesFromServer})"></div>
                                         </div>
 
                                     </div>

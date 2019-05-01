@@ -73,14 +73,17 @@
 
     <div class="modal-footer">
         <div class="form-group col-xs-offset-6 col-xs-6">
+
             <button
                     class="btn btn-primary"
                     form="userform"
-                    th:attrappend="form=*{id}"
+                    th:attrappend="form=${currentuser.getId()}"
                     type="submit">
                 Edit user
             </button>
+
             <button class="btn btn-default" data-dismiss="modal" type="button">Закрыть</button>
+
         </div>
     </div>
 
