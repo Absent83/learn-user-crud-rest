@@ -69,6 +69,12 @@
             <version>RELEASE</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+
 
         <!--To enable support for JSP’s, we would need to add a dependency on tomcat-embed-jasper.-->
         <dependency>

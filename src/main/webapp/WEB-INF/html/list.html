@@ -1,11 +1,9 @@
 <!doctype html>
 <html lang="en"
-      layout:decorate="defaultadmin" th:with="currentAdminBar='list'"
-      xmlns:layout="http://www.thymeleaf.org/" xmlns:th="http://www.thymeleaf.org">
-
+      xmlns:th="http://www.thymeleaf.org">
 <body>
-<div layout:fragment="contentadmin">
-    <h2 class="sub-header">All users</h2>
+<div th:fragment="userlist(usersFromServer)">
+
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -21,7 +19,7 @@
             </tr>
             </thead>
             <tbody>
-            <th:block th:each="user : ${usersFromServer}">
+            <th:block th:each="user:${usersFromServer}">
                 <tr>
                     <td th:text="${user.getId()}">
                     </td>
@@ -39,12 +37,23 @@
                     <td th:text="${user.getPassword()}">
                     </td>
                     <td>
-                        <form action="/users/edit" method="get">
-                            <input name="userId" th:value="${user.getId()}" type="hidden"/>
-                            <button class="btn btn-primary" type="submit">
-                                Edit
-                            </button>
-                        </form>
+                        <!-- Trigger the modal with a button -->
+                        <button class="btn btn-primary" data-target="#usereditmodal" data-toggle="modal"
+                                th:attrappend="data-target=${user.getId()}" type="button">Edit
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="usereditmodal" role="dialog"
+                             th:attrappend="id=${user.getId()}">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div th:replace="edit::useredit(currentuser=${user},rolesFromServer=${rolesFromServer})"></div>
+                                </div>
+
+                            </div>
+                        </div>
                     </td>
                     <td>
                         <form>
@@ -60,7 +69,6 @@
             </tbody>
         </table>
     </div>
+
 </div>
 </body>
-
-</html>

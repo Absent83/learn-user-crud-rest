@@ -1,13 +1,10 @@
 package com.myhome.springCrudRest.controllers;
 
+import com.myhome.springCrudRest.model.User;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Nick Dolgopolov (nick_kerch@mail.ru; https://github.com/Absent83/)
@@ -23,7 +20,15 @@ public class UserPageController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("profile");
 
-        modelAndView.addObject("userAuthorizedLogin", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        String name;
+
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof User) {
+            name = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        } else {
+            name = "annnnnnnnonim";
+        }
+
+        modelAndView.addObject("userAuthorizedLogin", name);
 
         return modelAndView;
     }

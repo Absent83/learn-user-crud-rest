@@ -10,14 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Nick Dolgopolov (nick_kerch@mail.ru; https://github.com/Absent83/)
@@ -45,33 +43,36 @@ public class UserController {
         List<User> users = userService.getAll();
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("list");
+//        modelAndView.setViewName("list");
+        modelAndView.setViewName("adminpage");
         modelAndView.addObject("usersFromServer", users);
-
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        modelAndView.addObject("userAuthorizedLogin", userDetails.getUsername());
-
-        return modelAndView;
-    }
-
-
-    @GetMapping(path = "/users/edit")
-    public ModelAndView editUserForm(@RequestParam(name = "userId", required = true) Long userId) {
-
-        Optional<User> userCandidate = userService.get(userId);
-
-        User user = userCandidate.orElseThrow(IllegalArgumentException::new);
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("edit");
-        modelAndView.addObject("userFromServer", user);
         modelAndView.addObject("rolesFromServer", roleService.getAll());
 
+
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         modelAndView.addObject("userAuthorizedLogin", userDetails.getUsername());
 
         return modelAndView;
     }
+
+//
+//    @GetMapping(path = "/users/edit")
+//    public ModelAndView editUserForm(@RequestParam(name = "userId", required = true) Long userId) {
+//
+//        Optional<User> userCandidate = userService.get(userId);
+//
+//        User user = userCandidate.orElseThrow(IllegalArgumentException::new);
+//
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("edit");
+//        modelAndView.addObject("userFromServer", user);
+//        modelAndView.addObject("rolesFromServer", roleService.getAll());
+//
+//        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        modelAndView.addObject("userAuthorizedLogin", userDetails.getUsername());
+//
+//        return modelAndView;
+//    }
 
 
     @PostMapping(path = "/users/edit")

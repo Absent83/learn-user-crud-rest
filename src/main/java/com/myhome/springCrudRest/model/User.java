@@ -29,7 +29,11 @@ public class User implements UserDetails {
 
     @ManyToMany(
             fetch = FetchType.EAGER,
-            cascade = {CascadeType.ALL})
+            cascade = {
+                    CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.DETACH,
+                    CascadeType.REFRESH})
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),

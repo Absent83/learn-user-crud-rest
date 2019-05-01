@@ -8,13 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Nick Dolgopolov (nick_kerch@mail.ru; https://github.com/Absent83/)
- * created on 03.04.2019
  */
 
 @Controller
 public class LoginController {
 
-    @GetMapping(path = "/login")
+    @GetMapping(path = {"/login", "", "/"})
     public String getLoginPage(ModelMap model, HttpServletRequest httpServletRequest) {
         System.out.println("getLoginPage");
         if (httpServletRequest.getParameterMap().containsKey("error")){
