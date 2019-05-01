@@ -43,7 +43,8 @@ public class UserController {
         List<User> users = userService.getAll();
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("list");
+//        modelAndView.setViewName("list");
+        modelAndView.setViewName("adminpage");
         modelAndView.addObject("usersFromServer", users);
         modelAndView.addObject("rolesFromServer", roleService.getAll());
 
