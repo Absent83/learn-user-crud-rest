@@ -1,18 +1,12 @@
 package com.myhome.springCrudRest.dao;
 
 import com.myhome.springCrudRest.model.Role;
-import com.myhome.springCrudRest.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.function.Supplier;
 
 /**
  * @author Nick Dolgopolov (nick_kerch@mail.ru; https://github.com/Absent83/)
@@ -24,6 +18,10 @@ public class RoleDAOEntityManager implements RoleDAO {
 
     //language=SQL
     private static final String SQL_GET_ALL = "SELECT r FROM Role r";
+
+
+    //language=SQL
+    private String SQL_GET_BY_AUTHORITY = "SELECT r FROM Role r WHERE r.authority = :authority";
 
 
     //@Autowired
@@ -38,9 +36,17 @@ public class RoleDAOEntityManager implements RoleDAO {
 
 
     @Override
+    public Optional<Role> getByAuthority(String authority) {
+        Role role = (Role) entityManager.createQuery(SQL_GET_BY_AUTHORITY)
+                .setParameter("authority", authority).getSingleResult();
+
+        return Optional.ofNullable(role);
+    }
+
+
+    @Override
     public List<Role> getAll() {
         return entityManager.createQuery(SQL_GET_ALL).getResultList();
-
     }
 
 

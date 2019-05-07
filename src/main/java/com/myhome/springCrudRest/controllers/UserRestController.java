@@ -1,15 +1,15 @@
 package com.myhome.springCrudRest.controllers;
 
-import com.myhome.springCrudRest.model.dto.UserForm;
+import com.myhome.springCrudRest.model.Role;
 import com.myhome.springCrudRest.model.User;
+import com.myhome.springCrudRest.model.dto.UserForm;
+import com.myhome.springCrudRest.service.RoleService;
 import com.myhome.springCrudRest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @RestController
@@ -17,6 +17,9 @@ public class UserRestController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    RoleService roleService;
 
 
     @GetMapping(path = "/api/users")
@@ -33,6 +36,7 @@ public class UserRestController {
 
         return users;
     }
+
 
     @PostMapping(path="/api/users")
     public ResponseEntity<Object> addUser(@RequestBody User userForm) { //
@@ -64,21 +68,29 @@ public class UserRestController {
 
 
     @PutMapping(path = "/api/users/{user-id}")
-    public ResponseEntity<Object> updateUser(@PathVariable("user-id") Integer userId, @RequestBody UserForm userForm){
-        Optional<User> userCandidate = userService.get(userId);
+    public User updateUser(@PathVariable("user-id") Integer userId, @RequestBody UserForm userForm) {
 
-        User user = null;
+        System.out.println("username: " + userForm.getUsername() + "" +
+                "firstname:" + userForm.getFirstName() + ""
+        );
 
-        if (userCandidate.isPresent()){
-            user = userCandidate.get();
-            user.setFirstName(userForm.getName());
-            user.setEmail(userForm.getEmail());
-            userService.update(user);
+        User user = userService.get(userId).orElseThrow(IllegalArgumentException::new);
+
+        user.setUsername(userForm.getUsername());
+        user.setFirstName(userForm.getFirstName());
+        user.setEmail(userForm.getEmail());
+        user.setPassword(userForm.getPassword());
+
+        Set<Role> roles = new HashSet<>();
+
+        for (Integer roleId : userForm.getRoles()) {
+            roles.add(roleService.get(roleId).orElseThrow(IllegalArgumentException::new));
         }
-        else {
-            throw (new IllegalArgumentException());
-        }
-        return ResponseEntity.ok().build();
+        user.setRoles(roles);
+
+        userService.update(user);
+
+        return user;
     }
 
 

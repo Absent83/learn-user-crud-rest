@@ -85,7 +85,6 @@
 </div>
 
 
-<p>userAuthorizedLogin: <%=request.getAttribute("userAuthorizedLogin").toString()%></p>
 <p>contextPath: <%=request.getContextPath()%></p>
 <p>contextPath: ${pageContext.request.contextPath}</p>
 

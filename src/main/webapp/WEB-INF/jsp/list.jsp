@@ -23,7 +23,7 @@
             <h1>List of users</h1>
         </div>
         <div class="col-sm-4 offset-sm-8 align-self-center">
-            <a href="/profile" class="btn btn-default">userAuthorizedLogin: <%=request.getAttribute("userAuthorizedLogin").toString()%></a>
+            <a href="/profile" class="btn btn-default">Profile</a>
             <a href="/logout" class="btn btn-default">Logout</a>
         </div>
     </div>
