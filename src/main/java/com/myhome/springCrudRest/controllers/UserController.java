@@ -4,8 +4,6 @@ import com.myhome.springCrudRest.model.User;
 import com.myhome.springCrudRest.service.RoleService;
 import com.myhome.springCrudRest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,10 +46,6 @@ public class UserController {
         modelAndView.addObject("usersFromServer", users);
         modelAndView.addObject("rolesFromServer", roleService.getAll());
 
-
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        modelAndView.addObject("userAuthorizedLogin", userDetails.getUsername());
-
         return modelAndView;
     }
 
@@ -67,9 +61,6 @@ public class UserController {
 //        modelAndView.setViewName("edit");
 //        modelAndView.addObject("userFromServer", user);
 //        modelAndView.addObject("rolesFromServer", roleService.getAll());
-//
-//        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        modelAndView.addObject("userAuthorizedLogin", userDetails.getUsername());
 //
 //        return modelAndView;
 //    }
@@ -95,8 +86,6 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("add");
 
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        modelAndView.addObject("userAuthorizedLogin", userDetails.getUsername());
         modelAndView.addObject("rolesFromServer", roleService.getAll());
 
         return modelAndView;

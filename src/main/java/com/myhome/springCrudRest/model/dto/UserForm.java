@@ -1,30 +1,51 @@
 package com.myhome.springCrudRest.model.dto;
 
-import com.myhome.springCrudRest.model.Role;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.myhome.springCrudRest.converter.RoleConverter;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Set;
 
 public class UserForm {
 
-    private String name;
+    @Autowired
+    RoleConverter roleConverter;
+
+    private String username;
+
+    private String firstName;
     private String email;
     private String password;
-    private Role role;
+
+    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+    private Set<Integer> roles;
+
 
     public UserForm() {
     }
 
-    public UserForm(String name, String email, String password, Role role) {
-        this.name = name;
+    public UserForm(String username, String firstName, String email, String password, Set<Integer> roles) {
+        this.username = username;
+        this.firstName = firstName;
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.roles = roles;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getEmail() {
@@ -35,12 +56,12 @@ public class UserForm {
         this.email = email;
     }
 
-    public Role getRole() {
-        return role;
+    public Set<Integer> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(Set<Integer> roles) {
+        this.roles = roles;
     }
 
     public String getPassword() {
