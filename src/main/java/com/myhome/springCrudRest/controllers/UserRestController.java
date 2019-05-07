@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 @RestController
@@ -39,31 +42,20 @@ public class UserRestController {
 
 
     @PostMapping(path="/api/users")
-    public ResponseEntity<Object> addUser(@RequestBody User userForm) { //
-        //System.out.println(userForm.getName());
+    public User addUser(@RequestBody UserForm userForm) { //
 
-//        User userNew = new User();
-//        userNew.setName(userForm.getName());
-//        userNew.setEmail(userForm.getEmail());
+        User userNew = new User();
 
-        userService.add(userForm);
-        return ResponseEntity.ok().build();
+        updateUserData(userForm, userNew);
+
+        userService.add(userNew);
+        return userNew;
     }
 
 
     @GetMapping(path = "/api/users/{user-id}")
     public User getUser(@PathVariable("user-id") Integer userId){
-        Optional<User> userCandidate = userService.get(userId);
-
-        User user = null;
-
-        if (userCandidate.isPresent()){
-            user = userCandidate.get();
-        }
-        else {
-            throw (new IllegalArgumentException());
-        }
-        return user;
+        return userService.get(userId).orElseThrow(IllegalArgumentException::new);
     }
 
 
@@ -76,6 +68,14 @@ public class UserRestController {
 
         User user = userService.get(userId).orElseThrow(IllegalArgumentException::new);
 
+        updateUserData(userForm, user);
+
+        userService.update(user);
+
+        return user;
+    }
+
+    private void updateUserData(UserForm userForm, User user) {
         user.setUsername(userForm.getUsername());
         user.setFirstName(userForm.getFirstName());
         user.setEmail(userForm.getEmail());
@@ -87,23 +87,14 @@ public class UserRestController {
             roles.add(roleService.get(roleId).orElseThrow(IllegalArgumentException::new));
         }
         user.setRoles(roles);
-
-        userService.update(user);
-
-        return user;
     }
 
 
     @DeleteMapping(path = "/api/users/{user-id}")
     public ResponseEntity<Object> deleteUser(@PathVariable("user-id") Integer userId){
 
-        Optional<User> userCandidate = userService.get(userId);
+        userService.delete(userId);
 
-        if (userCandidate.isPresent()){
-            userService.delete(userId);
-        } else {
-            throw (new IllegalArgumentException());
-        }
         return ResponseEntity.ok().build();
     }
 }
