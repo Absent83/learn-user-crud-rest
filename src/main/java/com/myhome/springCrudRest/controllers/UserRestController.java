@@ -42,14 +42,15 @@ public class UserRestController {
 
 
     @PostMapping(path="/api/users")
-    public User addUser(@RequestBody UserForm userForm) { //
+    public ResponseEntity<?> addUser(@RequestBody UserForm userForm) {
 
         User userNew = new User();
 
         updateUserData(userForm, userNew);
 
         userService.add(userNew);
-        return userNew;
+
+        return ResponseEntity.ok("{\"result\" : \"ok\"}");
     }
 
 
@@ -75,6 +76,16 @@ public class UserRestController {
         return user;
     }
 
+
+    @DeleteMapping(path = "/api/users/{user-id}")
+    public ResponseEntity<Object> deleteUser(@PathVariable("user-id") Integer userId) {
+
+        userService.delete(userId);
+
+        return ResponseEntity.ok().build();
+    }
+
+
     private void updateUserData(UserForm userForm, User user) {
         user.setUsername(userForm.getUsername());
         user.setFirstName(userForm.getFirstName());
@@ -87,14 +98,5 @@ public class UserRestController {
             roles.add(roleService.get(roleId).orElseThrow(IllegalArgumentException::new));
         }
         user.setRoles(roles);
-    }
-
-
-    @DeleteMapping(path = "/api/users/{user-id}")
-    public ResponseEntity<Object> deleteUser(@PathVariable("user-id") Integer userId){
-
-        userService.delete(userId);
-
-        return ResponseEntity.ok().build();
     }
 }

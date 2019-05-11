@@ -1,15 +1,20 @@
-var api_url = 'http://localhost:8080/api';
+let api_url = 'http://localhost:8080/api';
 
-var isUsersReady = false;
-var isRolesReady = false;
+let isUsersReady = false;
+let isRolesReady = false;
 
-var usersJsonFromServer;
-var rolesJsonFromServer;
+let usersJsonFromServer;
+let rolesJsonFromServer;
+
+
 
 
 $(document).ready(function () {
 
     rebuildPage();
+
+    createModalCallBacks();
+    createNewUserCallBacks();
 });
 
 
@@ -47,10 +52,8 @@ function loadData() {
             rolesJsonFromServer = result;
             isRolesReady = true;
             console.log(result);
-
         }
     });
-
 }
 
 
@@ -60,7 +63,7 @@ function makeListTab() {
 
         console.log("build list");
 
-        $('#usertable').html('');
+        $('#usertablebody').html('');
 
         $.each(usersJsonFromServer, function (i, user) {
 
@@ -102,60 +105,7 @@ function makeListTab() {
             newTr.append($('<td/>').append(buttonUserDelete));
 
 
-            $('#usertable').append(newTr);
-        });
-
-
-        $('#usereditmodaljs').on('show.bs.modal', function (event) {
-            let button = $(event.relatedTarget); // Button that triggered the modal
-
-
-            let modalheader = $(event.currentTarget).find('.modal-header');
-            modalheader.find('.modal-title').text('Edit user ' + button.data('firstname'));
-
-
-            let modalbody = $(event.currentTarget).find('.modal-body');
-            let user = button.data('user');
-
-            modalbody.find('form[id="userform"]').attr('action', '/api/users/' + user.id);
-            modalbody.find('input[id="id"]').val(user.id);
-            modalbody.find('input[id="username"]').val(user.username);
-            modalbody.find('input[id="firstName"]').val(user.firstName);
-            modalbody.find('input[id="email"]').val(user.email);
-            modalbody.find('input[id="password"]').val(user.password);
-
-            modalbody.find('select[id="roles"]').html('');
-
-            $.each(rolesJsonFromServer, function (i, role) {
-
-                let newOption = $('<option/>');
-                newOption.attr('name', role.id);
-                newOption.attr('value', role.id);
-                newOption.html(role.authority);
-                if (user.roles.filter(function (r) {
-                    return r.id === role.id;
-                }).length > 0) {
-                    newOption.attr('selected', '');
-                }
-
-                modalbody.find('select[id="roles"]').append(newOption);
-            });
-
-
-            let modalfooter = $(event.currentTarget).find('.modal-footer');
-            modalfooter.find('button[id="usereditbutton"]').attr('action', '/api/users/' + button.data('id'));
-        });
-
-
-        $("#buttonUserUpdate").click(function () {
-
-            let jsonData = JSON.stringify(getData($('#userform')));
-
-            console.log(jsonData);
-            UpdateUser(jsonData);
-
-            $('#usereditmodaljs').modal('hide');
-            rebuildPage();
+            $('#usertablebody').append(newTr);
         });
     }
 }
@@ -179,26 +129,84 @@ function makeNewUserTab() {
             $("#adduserjs").find('select[id="roles"]').append(newOption);
         });
 
-        $("#buttonUserAdd").click(function () {
-
-            var data = getData($('#adduserjs'));
-            data['id'] = "0";
-
-            var jsonData = JSON.stringify(data);
-
-            console.log(jsonData);
-            AddUser(jsonData);
-            $("#adduserjs").trigger("reset");
-            alert("user " + data['username'] + " was added!");
-            rebuildPage();
-        });
-
 
     }
 }
 
 
-function AddUser(jsonToSend) {
+function createModalCallBacks() {
+    $('#usereditmodaljs').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget); // Button that triggered the modal
+
+
+        let modalheader = $(event.currentTarget).find('.modal-header');
+        modalheader.find('.modal-title').text('Edit user ' + button.data('firstname'));
+
+
+        let modalbody = $(event.currentTarget).find('.modal-body');
+        let user = button.data('user');
+
+        modalbody.find('form[id="userform"]').attr('action', '/api/users/' + user.id);
+        modalbody.find('input[id="id"]').val(user.id);
+        modalbody.find('input[id="username"]').val(user.username);
+        modalbody.find('input[id="firstName"]').val(user.firstName);
+        modalbody.find('input[id="email"]').val(user.email);
+        modalbody.find('input[id="password"]').val(user.password);
+
+        modalbody.find('select[id="roles"]').html('');
+
+        $.each(rolesJsonFromServer, function (i, role) {
+
+            let newOption = $('<option/>');
+            newOption.attr('name', role.id);
+            newOption.attr('value', role.id);
+            newOption.html(role.authority);
+            if (user.roles.filter(function (r) {
+                return r.id === role.id;
+            }).length > 0) {
+                newOption.attr('selected', '');
+            }
+
+            modalbody.find('select[id="roles"]').append(newOption);
+        });
+
+
+        let modalfooter = $(event.currentTarget).find('.modal-footer');
+        modalfooter.find('button[id="usereditbutton"]').attr('action', '/api/users/' + button.data('id'));
+    });
+
+
+    $("#buttonUserUpdate").click(function () {
+
+        let jsonData = JSON.stringify(getData($('#userform')));
+
+        // console.log(jsonData);
+        updateUser(jsonData);
+
+        $('#usereditmodaljs').modal('hide');
+        rebuildPage();
+    });
+}
+
+
+function createNewUserCallBacks() {
+    $("#buttonUserAdd").click(function () {
+
+        var data = getData($('#adduserjs'));
+        data['id'] = "0";
+
+        var jsonData = JSON.stringify(data);
+
+        // console.log(jsonData);
+        addUser(jsonData);
+        $("#adduserjs").trigger("reset");
+        alert("user " + data['username'] + " was added!");
+        rebuildPage();
+    });
+}
+
+
+function addUser(jsonToSend) {
 
     console.log(jsonToSend);
 
@@ -209,20 +217,20 @@ function AddUser(jsonToSend) {
             type: "POST",
             data: jsonToSend,
             contentType: "application/json",
-            dataType: 'json',
+            dataType: 'json'
 
         })
-        .done(function (msg) {
-            console.log("success: finish add user: " + msg);
+        .done(function () {
+            console.log("success: finish add user");
         })
         .fail(function () {
-            console.log("error: finish add user");
+            console.log("===ERROR===: finish add user");
         });
 
 }
 
 
-function UpdateUser(jsonToSend) {
+function updateUser(jsonToSend) {
 
     console.log(jsonToSend);
 
@@ -233,14 +241,14 @@ function UpdateUser(jsonToSend) {
             type: "PUT",
             data: jsonToSend,
             contentType: "application/json",
-            dataType: 'json',
+            dataType: 'json'
 
         })
         .done(function (msg) {
             console.log("success: finish saving user: " + msg);
         })
         .fail(function () {
-            console.log("error: finish saving user");
+            console.log("===ERROR===: finish saving user");
         });
 
 }
@@ -257,7 +265,7 @@ function deleteUser(id) {
             console.log("success: finish deleting user: " + msg);
         })
         .fail(function () {
-            console.log("error: finish deleting user");
+            console.log("===ERROR===: finish deleting user");
         });
 }
 
